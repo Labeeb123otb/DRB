@@ -7,7 +7,7 @@ var GitHubDB = {
 
   init: function() {
     var cfg = typeof LBOCRAFT_CONFIG !== 'undefined' ? LBOCRAFT_CONFIG : {};
-    // Try localStorage first (set from dashboard settings), fall back to config.js
+    // localStorage override (set from dashboard settings) > config.js
     this._token = localStorage.getItem('lbc_github_token') || cfg.GITHUB_TOKEN || '';
     this._repo = cfg.GITHUB_REPO || '';
     this._branch = cfg.GITHUB_BRANCH || 'main';
