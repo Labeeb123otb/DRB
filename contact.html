@@ -1,0 +1,312 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تواصل معنا | درب النجاح للتسويق الالكتروني</title>
+  <meta name="description" content="تواصل مع مؤسسة درب النجاح للتسويق الالكتروني - نحن هنا لمساعدتك في بناء حضورك الرقمي.">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .contact-form-card {
+      background: var(--gradient-card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-form-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(0, 212, 255, 0.04), transparent 60%);
+      pointer-events: none;
+    }
+    .contact-form-card h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      position: relative;
+    }
+    .contact-form-card > p {
+      color: var(--text-dim);
+      margin-bottom: 2rem;
+      font-size: 0.9rem;
+      position: relative;
+    }
+    .contact-left {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .contact-social-links {
+      display: flex;
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+    .social-link-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      background: var(--card-bg);
+      border: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .social-link-btn:hover {
+      border-color: var(--accent);
+      background: rgba(0, 212, 255, 0.08);
+      transform: translateY(-3px);
+    }
+    .map-placeholder {
+      height: 200px;
+      background: var(--card-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      color: var(--text-dim);
+    }
+    .map-placeholder .icon { font-size: 2rem; }
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 3rem;
+    }
+    .form-success.show { display: block; }
+    .form-success .icon { font-size: 4rem; margin-bottom: 1rem; }
+    .form-success h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .form-success p { color: var(--text-dim); }
+  </style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-particles"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="container">
+    <div class="logo-group">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">د ن</div>
+        <div class="logo-text"><span class="highlight">درب النجاح</span></div>
+      </a>
+    </div>
+    <ul class="nav-links">
+      <li class="sidebar-close"><button class="sidebar-close-btn" aria-label="إغلاق">&times;</button></li>
+      <li><a href="index.html">الرئيسية</a></li>
+      <li><a href="about.html">من نحن</a></li>
+      <li><a href="services.html">خدماتنا</a></li>
+      <li><a href="blog.html">المدونة</a></li>
+                <li><a href="contact.html">تواصل معنا</a></li>
+    </ul>
+    <button class="theme-toggle" id="themeToggle" title="تبديل الوضع">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+    <div class="mobile-toggle">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="container">
+    <h1 class="fade-up">تواصل <span class="gradient-text">معنا</span></h1>
+    <p class="fade-up delay-1">نحن هنا لمساعدتك في بناء حضورك الرقمي الاحترافي</p>
+    <div class="breadcrumb fade-up delay-2">
+      <a href="index.html">الرئيسية</a>
+      <span>/</span>
+      <span>تواصل معنا</span>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT SECTION -->
+<section class="section">
+  <div class="container">
+    <div class="contact-grid">
+      <!-- FORM -->
+      <div class="contact-form-card fade-up">
+        <h3>أرسل لنا رسالة</h3>
+        <p>اختر نوع الخدمة وسنرد عليك خلال 24 ساعة.</p>
+        <form id="contactForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label>الاسم الكامل</label>
+              <input type="text" class="form-control" placeholder="أدخل اسمك" required>
+            </div>
+            <div class="form-group">
+              <label>البريد الإلكتروني</label>
+              <input type="email" class="form-control" placeholder="example@email.com" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>رقم الجوال</label>
+              <input type="tel" class="form-control" placeholder="+966 5XX XXX XXXX">
+            </div>
+            <div class="form-group">
+              <label>نوع الخدمة</label>
+              <select class="form-control">
+                <option value="">اختر الخدمة</option>
+                <option>تصميم وتطوير موقع إلكتروني</option>
+                <option>إدارة إعلانات جوجل</option>
+                <option>الخدمات التقنية المتقدمة</option>
+                <option>استشارة تسويقية عامة</option>
+                <option>أخرى</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>تفاصيل المشروع</label>
+            <textarea class="form-control" placeholder="أخبرنا عن مشروعك وأهدافك..." rows="5"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg" style="width:100%; justify-content:center;">
+            إرسال الرسالة ←
+          </button>
+        </form>
+        <div class="form-success" id="formSuccess">
+          <div class="icon">✅</div>
+          <h3>تم إرسال رسالتك بنجاح!</h3>
+          <p>سنتواصل معك في أقرب وقت ممكن.</p>
+        </div>
+      </div>
+
+      <!-- INFO -->
+      <div class="contact-left fade-up delay-2">
+        <div class="contact-info-card">
+          <div class="icon">📧</div>
+          <div>
+            <h4>البريد الإلكتروني</h4>
+            <p>info@darbalnajah.com</p>
+          </div>
+        </div>
+        <div class="contact-info-card">
+          <div class="icon">📱</div>
+          <div>
+            <h4>واتساب</h4>
+            <p>تواصل معنا عبر واتساب مباشرة</p>
+          </div>
+        </div>
+        <div class="contact-info-card">
+          <div class="icon">📍</div>
+          <div>
+            <h4>المقر</h4>
+            <p>الرياض، المملكة العربية السعودية</p>
+          </div>
+        </div>
+        <div class="contact-info-card">
+          <div class="icon">⏰</div>
+          <div>
+            <h4>ساعات العمل</h4>
+            <p>الأحد إلى الخميس: 9 صباحاً - 6 مساءً</p>
+          </div>
+        </div>
+
+        <div class="map-placeholder">
+          <div class="icon">🗺️</div>
+          <span>الرياض، المملكة العربية السعودية</span>
+        </div>
+
+        <div style="margin-top:1rem;">
+          <h4 style="font-size:0.9rem; margin-bottom:0.5rem; color:var(--text-dim);">تابعنا على</h4>
+          <div class="contact-social-links">
+            <a href="#" class="social-link-btn" title="Instagram">📷</a>
+            <a href="#" class="social-link-btn" title="TikTok">🎵</a>
+            <a href="#" class="social-link-btn" title="Snapchat">👻</a>
+            <a href="#" class="social-link-btn" title="Facebook">📘</a>
+            <a href="#" class="social-link-btn" title="X">✖</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <div class="logo-icon">د ن</div>
+          <div class="logo-text"><span class="highlight">درب النجاح</span></div>
+        </a>
+        <p>مؤسسة متخصصة في التسويق الرقمي وتصميم المواقع الإلكترونية في الرياض، المملكة العربية السعودية.</p>
+      </div>
+      <div class="footer-col">
+        <h4>روابط سريعة</h4>
+        <ul>
+          <li><a href="index.html">الرئيسية</a></li>
+          <li><a href="about.html">من نحن</a></li>
+          <li><a href="services.html">خدماتنا</a></li>
+          <li><a href="blog.html">المدونة</a></li>
+          <li><a href="contact.html">تواصل معنا</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>خدماتنا</h4>
+        <ul>
+          <li><a href="services.html#websites">تصميم المواقع</a></li>
+          <li><a href="services.html#google-ads">إعلانات جوجل</a></li>
+          <li><a href="services.html#social">إدارة التواصل</a></li>
+          <li><a href="services.html#tech">الخدمات التقنية</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>تواصل معنا</h4>
+        <ul>
+          <li><a href="mailto:info@darbalnajah.com">info@darbalnajah.com</a></li>
+          <li><a href="https://wa.me/966500000000">واتساب</a></li>
+          <li><a href="#">الرياض، السعودية</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 درب النجاح للتسويق الالكتروني. جميع الحقوق محفوظة.</span>
+      <div class="footer-social">
+        <a href="#" title="Instagram" id="footerIg"></a>
+        <a href="#" title="TikTok" id="footerTiktok"></a>
+        <a href="#" title="Snapchat" id="footerSnap"></a>
+        <a href="#" title="Facebook" id="footerFb"></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/966500000000" class="whatsapp-fab" target="_blank" title="تواصل عبر واتساب" id="whatsappFab"></a>
+<script src="js/icons.js"></script>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('whatsappFab').innerHTML = Icons.whatsapp;
+  var footerMap = { footerIg: 'instagram', footerTiktok: 'tiktok', footerSnap: 'snapchatGhost', footerFb: 'facebook' };
+  Object.entries(footerMap).forEach(function(entry) {
+    var el = document.getElementById(entry[0]);
+    if (el) el.innerHTML = Icons[entry[1]] || '';
+  });
+});
+</script>
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  this.style.display = 'none';
+  document.getElementById('formSuccess').classList.add('show');
+});
+</script>
+<script src="js/config.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

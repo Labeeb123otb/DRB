@@ -1,0 +1,301 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الإنتاج والتصوير الاحترافي | درب النجاح</title>
+  <meta name="description" content="إنتاج وتصوير احترافي لمحتوى التواصل الاجتماعي — قادم قريباً - درب النجاح للتسويق الالكتروني.">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .service-hero-banner {
+      background: var(--gradient-card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 4rem 3rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-hero-banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 3px;
+      background: var(--gradient-main);
+    }
+    .service-hero-banner h1 {
+      font-size: 2.2rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+    }
+    .service-hero-banner p {
+      color: var(--text-dim);
+      font-size: 1.05rem;
+      line-height: 2;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .service-features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .service-feature-card {
+      background: var(--gradient-card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .service-feature-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      height: 3px;
+      background: var(--gradient-main);
+      transform: scaleX(0);
+      transition: var(--transition);
+    }
+    .service-feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-glow);
+      border-color: rgba(0, 212, 255, 0.25);
+    }
+    .service-feature-card:hover::after {
+      transform: scaleX(1);
+    }
+    .service-feature-card .sf-icon {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+    }
+    .service-feature-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .service-feature-card p {
+      color: var(--text-dim);
+      font-size: 0.9rem;
+      line-height: 1.9;
+    }
+    .service-cta {
+      background: var(--gradient-card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 3rem;
+      text-align: center;
+    }
+    .service-cta h3 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    .service-cta p {
+      color: var(--text-dim);
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+      line-height: 1.9;
+    }
+    .coming-soon-notice {
+      background: rgba(255, 193, 7, 0.06);
+      border: 1px solid rgba(255, 193, 7, 0.2);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+      text-align: center;
+    }
+    .coming-soon-notice h2 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 0.7rem;
+      color: #ffc107;
+    }
+    .coming-soon-notice p {
+      color: var(--text-dim);
+      font-size: 1rem;
+      line-height: 1.9;
+    }
+    @media (max-width: 768px) {
+      .service-hero-banner { padding: 2.5rem 1.5rem; }
+      .service-hero-banner h1 { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-particles"></div>
+
+<nav class="navbar">
+  <div class="container">
+    <div class="logo-group">
+      <a href="../index.html" class="logo">
+        <div class="logo-icon">د ن</div>
+        <div class="logo-text"><span class="highlight">درب النجاح</span></div>
+      </a>
+    </div>
+    <ul class="nav-links">
+      <li class="sidebar-close"><button class="sidebar-close-btn" aria-label="إغلاق">&times;</button></li>
+      <li><a href="../index.html">الرئيسية</a></li>
+      <li><a href="../about.html">من نحن</a></li>
+      <li><a href="../services.html" class="active">خدماتنا</a></li>
+      <li><a href="../blog.html">المدونة</a></li>
+                <li><a href="../contact.html">تواصل معنا</a></li>
+    </ul>
+    <button class="theme-toggle" id="themeToggle" title="تبديل الوضع">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+    <div class="mobile-toggle">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <h1 class="fade-up">الإنتاج والتصوير <span class="gradient-text">الاحترافي</span></h1>
+    <p class="fade-up delay-1">خدمات إنتاج وتصوير احترافية لمحتوى التواصل الاجتماعي — قادمة قريباً</p>
+    <div class="breadcrumb fade-up delay-2">
+      <a href="../index.html">الرئيسية</a>
+      <span>/</span>
+      <a href="../services.html">خدماتنا</a>
+      <span>/</span>
+      <span>الإنتاج والتصوير</span>
+    </div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+
+    <div class="coming-soon-notice fade-up">
+      <span class="badge coming-soon">قريباً</span>
+      <h2>هذه الخدمة ستكون متاحة قريباً</h2>
+      <p>نعمل حالياً على تجهيز باقة الإنتاج والتصوير الاحترافي لتوفير أفضل تجربة ممكنة. سجّل الآن لتكون أول من يعرف عند الإطلاق.</p>
+    </div>
+
+    <div class="service-hero-banner fade-up">
+      <h1>الإنتاج والتصوير الاحترافي — محتوى بصري يُبهر</h1>
+      <p>نُقدّم خدمات إنتاج وتصوير احترافية شاملة للمحتوى الشهري. من التصوير في الاستوديو إلى الإنتاج الخارجي، نُنتج لك محتوى بصري بجودة سينمائية جاهز للنشر مباشرة على منصات التواصل الاجتماعي.</p>
+    </div>
+
+    <div class="service-features-grid">
+      <div class="service-feature-card fade-up delay-1">
+        <div class="sf-icon">📷</div>
+        <h3>تصوير فيديو وصورة احترافي</h3>
+        <p>نستخدم أحدث معدات التصوير والعدسات الاحترافية لنُنتج محتوى بصري بأعلى جودة ودقة تلبي تطلعات علامتك التجارية.</p>
+      </div>
+      <div class="service-feature-card fade-up delay-2">
+        <div class="sf-icon">📅</div>
+        <h3>إنتاج محتوى شهري</h3>
+        <p>نُنتج لك حزمة محتوى شهرية منتظمة تضمن استمرار حضورك الرقمي وتُعزز التفاعل المستمر مع جمهورك.</p>
+      </div>
+      <div class="service-feature-card fade-up delay-3">
+        <div class="sf-icon">🎞️</div>
+        <h3>مونتاج وتلوين احترافي</h3>
+        <p>نُعدّل المحتوى المصوّر بأدوات متقدمة مع تلوين سينمائي ومؤثرات بصرية تُضفي لمسة احترافية على كل فيديو.</p>
+      </div>
+      <div class="service-feature-card fade-up delay-4">
+        <div class="sf-icon">✅</div>
+        <h3>جاهز للنشر فوراً</h3>
+        <p>المحتوى يصلك مُعدّلاً ومقاسّراً ومهيأاً للنشر مباشرة على جميع منصات التواصل دون تعديلات إضافية.</p>
+      </div>
+      <div class="service-feature-card fade-up delay-5">
+        <div class="sf-icon">🏢</div>
+        <h3>تصوير في الاستوديو</h3>
+        <p>نُوفّر استوديو تصوير مجهّز بالكامل بإضاءة احترافية وخلفيات متعددة لتحقيق أفضل النتائج الممكنة.</p>
+      </div>
+      <div class="service-feature-card fade-up delay-6">
+        <div class="sf-icon">🌳</div>
+        <h3>إنتاج محتوى خارجي</h3>
+        <p>نخرج إلى الموقع المناسب لتصوير محتوى خارجي يُضفي طابعاً طبيعياً وrealistically ويجذب انتباه المشاهدين.</p>
+      </div>
+    </div>
+
+    <div class="service-cta fade-up">
+      <h3>كن أول من يعرف عند الإطلاق</h3>
+      <p>تواصل معنا الآن لتسجيل اهتمامك بهذه الخدمة وسنُبلغك فوراً عند توفرها.</p>
+      <a href="../contact.html" class="btn btn-primary btn-lg">تواصل معنا</a>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="logo">
+          <div class="logo-icon">د ن</div>
+          <div class="logo-text"><span class="highlight">درب النجاح</span></div>
+        </a>
+        <p>مؤسسة متخصصة في التسويق الرقمي وتصميم المواقع الإلكترونية في الرياض، المملكة العربية السعودية.</p>
+      </div>
+      <div class="footer-col">
+        <h4>روابط سريعة</h4>
+        <ul>
+          <li><a href="../index.html">الرئيسية</a></li>
+          <li><a href="../about.html">من نحن</a></li>
+          <li><a href="../services.html">خدماتنا</a></li>
+          <li><a href="../blog.html">المدونة</a></li>
+          <li><a href="../contact.html">تواصل معنا</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>خدماتنا</h4>
+        <ul>
+          <li><a href="../services.html#websites">تصميم المواقع</a></li>
+          <li><a href="../services.html#google-ads">إعلانات جوجل</a></li>
+          <li><a href="../services.html#social">إدارة التواصل</a></li>
+          <li><a href="../services.html#tech">الخدمات التقنية</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>تواصل معنا</h4>
+        <ul>
+          <li><a href="mailto:info@darbalnajah.com">info@darbalnajah.com</a></li>
+          <li><a href="https://wa.me/966500000000">واتساب</a></li>
+          <li><a href="#">الرياض، السعودية</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 درب النجاح للتسويق الالكتروني. جميع الحقوق محفوظة.</span>
+      <div class="footer-social">
+        <a href="#" title="Instagram" id="footerIg"></a>
+        <a href="#" title="TikTok" id="footerTiktok"></a>
+        <a href="#" title="Snapchat" id="footerSnap"></a>
+        <a href="#" title="Facebook" id="footerFb"></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/966500000000" class="whatsapp-fab" target="_blank" title="تواصل عبر واتساب" id="whatsappFab"></a>
+
+<script src="../js/icons.js"></script>
+<script src="../js/data.js"></script>
+<script src="../js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('whatsappFab').innerHTML = Icons.whatsapp;
+  var footerMap = { footerIg: 'instagram', footerTiktok: 'tiktok', footerSnap: 'snapchatGhost', footerFb: 'facebook' };
+  Object.entries(footerMap).forEach(function(entry) {
+    var el = document.getElementById(entry[0]);
+    if (el) el.innerHTML = Icons[entry[1]] || '';
+  });
+});
+</script>
+<script src="../js/config.js"></script>
+<script src="../js/admin.js"></script>
+</body>
+</html>

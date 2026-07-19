@@ -1,0 +1,437 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>خدمة المواقع الصغيرة | درب النجاح</title>
+  <meta name="description" content="تصميم مواقع إلكترونية صغيرة ومحدودة ببنية 5 صفحات، تصميم متجاوب، تحسين محركات البحث، وسرعة تحميل فائقة - درب النجاح للتسويق الالكتروني.">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .service-hero-banner {
+      background: var(--gradient-card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 4rem 3rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-hero-banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 3px;
+      background: var(--gradient-main);
+    }
+    .service-hero-banner h1 {
+      font-size: 2.2rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+    }
+    .service-hero-banner p {
+      color: var(--text-dim);
+      font-size: 1.05rem;
+      line-height: 2;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .service-features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .service-feature-card {
+      background: var(--gradient-card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .service-feature-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      height: 3px;
+      background: var(--gradient-main);
+      transform: scaleX(0);
+      transition: var(--transition);
+    }
+    .service-feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-glow);
+      border-color: rgba(0, 212, 255, 0.25);
+    }
+    .service-feature-card:hover::after {
+      transform: scaleX(1);
+    }
+    .service-feature-card .sf-icon {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+    }
+    .service-feature-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .service-feature-card p {
+      color: var(--text-dim);
+      font-size: 0.9rem;
+      line-height: 1.9;
+    }
+
+    .service-audience {
+      margin-bottom: 3rem;
+    }
+    .service-audience h2 {
+      font-size: 1.8rem;
+      font-weight: 900;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.2rem;
+    }
+    .audience-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+    }
+    .audience-item:hover {
+      border-color: var(--card-border);
+    }
+    .audience-item .a-icon {
+      font-size: 1.5rem;
+      min-width: 2rem;
+    }
+    .audience-item h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .audience-item p {
+      color: var(--text-dim);
+      font-size: 0.82rem;
+      line-height: 1.8;
+    }
+
+    .service-process {
+      margin-bottom: 3rem;
+    }
+    .service-process h2 {
+      font-size: 1.8rem;
+      font-weight: 900;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .process-step {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      background: var(--gradient-card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      transition: var(--transition);
+      position: relative;
+    }
+    .process-step:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-glow);
+    }
+    .process-step .step-number {
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+      background: rgba(0, 212, 255, 0.1);
+      border: 1px solid rgba(0, 212, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--accent);
+      margin: 0 auto 1rem;
+    }
+    .process-step h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .process-step p {
+      color: var(--text-dim);
+      font-size: 0.85rem;
+      line-height: 1.8;
+    }
+
+    .service-cta {
+      background: var(--gradient-card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 3rem;
+      text-align: center;
+    }
+    .service-cta h3 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    .service-cta p {
+      color: var(--text-dim);
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+      line-height: 1.9;
+    }
+
+    @media (max-width: 768px) {
+      .service-hero-banner { padding: 2.5rem 1.5rem; }
+      .service-hero-banner h1 { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-particles"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="container">
+    <div class="logo-group">
+      <a href="../index.html" class="logo">
+        <div class="logo-icon">د ن</div>
+        <div class="logo-text"><span class="highlight">درب النجاح</span></div>
+      </a>
+    </div>
+    <ul class="nav-links">
+      <li class="sidebar-close"><button class="sidebar-close-btn" aria-label="إغلاق">&times;</button></li>
+      <li><a href="../index.html">الرئيسية</a></li>
+      <li><a href="../about.html">من نحن</a></li>
+      <li><a href="../services.html" class="active">خدماتنا</a></li>
+      <li><a href="../blog.html">المدونة</a></li>
+                <li><a href="../contact.html">تواصل معنا</a></li>
+    </ul>
+    <button class="theme-toggle" id="themeToggle" title="تبديل الوضع">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+    <div class="mobile-toggle">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="container">
+    <h1 class="fade-up">خدمة المواقع <span class="gradient-text">المحدودة</span></h1>
+    <p class="fade-up delay-1">مواقع أنيقة وسريعة ببنية 5 صفحات مُحسّنة، مثالية للانطلاقة الرقمية</p>
+    <div class="breadcrumb fade-up delay-2">
+      <a href="../index.html">الرئيسية</a>
+      <span>/</span>
+      <a href="../services.html">خدماتنا</a>
+      <span>/</span>
+      <span>المواقع الصغيرة</span>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICE CONTENT -->
+<section class="section">
+  <div class="container">
+
+    <!-- HERO BANNER -->
+    <div class="service-hero-banner fade-up">
+      <h1>المواقع المحدودة — انطلاقتك الرقمية بتصميم احترافي</h1>
+      <p>نقدم لك موقعًا إلكترونيًا أنيقًا وسريعًا ببنية 5 صفحات مُحسّنة بالكامل، مصمم خصيصًا ليعكس هوية عملك ويحقق أهدافك الرقمية بأقل تكلفة وأعلى جودة.</p>
+    </div>
+
+    <!-- FEATURES -->
+    <div class="service-features-grid">
+      <div class="service-feature-card fade-up delay-1">
+        <div class="sf-icon">📱</div>
+        <h3>تصميم متجاوب بالكامل</h3>
+        <p>موقعك يعمل بسلاسة على جميع الأجهزة — من الهواتف الذكية إلى أجهزة الكمبيوتر المكتبية — بتجربة مستخدم مثالية.</p>
+      </div>
+      <div class="service-feature-card fade-up delay-2">
+        <div class="sf-icon">📄</div>
+        <h3>بنية 5 صفحات</h3>
+        <p>خمس صفحات احترافية تشمل: الصفحة الرئيسية، من نحن، خدماتنا، تواصل معنا، والمدونة — كل ما تحتاجه في مكان واحد.</p>
+      </div>
+      <div class="service-feature-card fade-up delay-3">
+        <div class="sf-icon">🔍</div>
+        <h3>تحسين محركات البحث</h3>
+        <p>تحسين شامل لمحركات البحث (SEO) يضمن ظهور موقعك في نتائج البحث الأولى عند البحث عن خدماتك.</p>
+      </div>
+      <div class="service-feature-card fade-up delay-4">
+        <div class="sf-icon">⚡</div>
+        <h3>سرعة تحميل فائقة</h3>
+        <p>مواقع خفيفة وسريعة التحميل تُحسّن تجربة المستخدم وتصنيف محركات البحث وتخفض معدلات الارتداد.</p>
+      </div>
+      <div class="service-feature-card fade-up delay-5">
+        <div class="sf-icon">🛠️</div>
+        <h3>دعم فني متميز</h3>
+        <p>فريق دعم فني متخصص جاهز لمساعدتك بعد التسليم، مع صيانة دورية وتحديثات مستمرة لموقعك.</p>
+      </div>
+    </div>
+
+    <!-- WHO IS IT FOR -->
+    <div class="service-audience fade-up">
+      <h2>هذه الخدمة <span class="gradient-text">مناسبة لك</span> إذا كنت:</h2>
+      <div class="audience-grid">
+        <div class="audience-item">
+          <div class="a-icon">🚀</div>
+          <div>
+            <h4>شركة ناشئة</h4>
+            <p>تبحث عن حضور رقمي احترافي بأقل تكلفة للانطلاقة بأسرع وقت ممكن.</p>
+          </div>
+        </div>
+        <div class="audience-item">
+          <div class="a-icon">🏪</div>
+          <div>
+            <h4>مشروع صغير أو متجر محلي</h4>
+            <p>يحتاج إلى موقع تعريفي يُظهر خدماته ويعزز ثقة العملاء في علامته التجارية.</p>
+          </div>
+        </div>
+        <div class="audience-item">
+          <div class="a-icon">👨‍💼</div>
+          <div>
+            <h4>محترف أو مستقل</h4>
+            <p>يحتاج إلى بطاقة تعريف رقمية أنيقة تعرض أعماله ومهاراته وطرق التواصل.</p>
+          </div>
+        </div>
+        <div class="audience-item">
+          <div class="a-icon">💡</div>
+          <div>
+            <h4>مشروع جانبي</h4>
+            <p>يبحث عن حل سريع ومميز لإطلاق مشروعه دون استثمار ضخم في البداية.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROCESS -->
+    <div class="service-process fade-up">
+      <h2>كيف <span class="gradient-text">نعمل</span> معك؟</h2>
+      <div class="process-grid">
+        <div class="process-step fade-up delay-1">
+          <div class="step-number">01</div>
+          <h4>الاستشارة المجانية</h4>
+          <p>نستمع إلى رؤيتك وأهدافك ونحدد معًا الخطوات المثالية لمشروعك.</p>
+        </div>
+        <div class="process-step fade-up delay-2">
+          <div class="step-number">02</div>
+          <h4>التخطيط والتصميم</h4>
+          <p>نصمم تصميمًا مبدئيًا يعكس هوية علامتك التجارية ويُرضي ذوقك.</p>
+        </div>
+        <div class="process-step fade-up delay-3">
+          <div class="step-number">03</div>
+          <h4>التطوير والإطلاق</h4>
+          <p>نُحوّل التصميم إلى موقع حقيقي يعمل بكفاءة عالية ونُطلقه رسميًا.</p>
+        </div>
+        <div class="process-step fade-up delay-4">
+          <div class="step-number">04</div>
+          <h4>الدعم والمتابعة</h4>
+          <p>نبقى بجانبك بعد التسليم مع دعم فني مستمر وتحديثات دورية.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="service-cta fade-up">
+      <h3>ابدأ رحلتك الرقمية <span class="gradient-text">اليوم</span></h3>
+      <p>تواصل معنا الآن واحصل على استشارة مجانية لمعرفة كيف يمكننا بناء موقعك الاحترافي في وقت قياسي.</p>
+      <a href="../contact.html" class="btn btn-primary btn-lg">تواصل معنا</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="logo">
+          <div class="logo-icon">د ن</div>
+          <div class="logo-text"><span class="highlight">درب النجاح</span></div>
+        </a>
+        <p>مؤسسة متخصصة في التسويق الرقمي وتصميم المواقع الإلكترونية في الرياض، المملكة العربية السعودية.</p>
+      </div>
+      <div class="footer-col">
+        <h4>روابط سريعة</h4>
+        <ul>
+          <li><a href="../index.html">الرئيسية</a></li>
+          <li><a href="../about.html">من نحن</a></li>
+          <li><a href="../services.html">خدماتنا</a></li>
+          <li><a href="../blog.html">المدونة</a></li>
+          <li><a href="../contact.html">تواصل معنا</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>خدماتنا</h4>
+        <ul>
+          <li><a href="../services.html#websites">تصميم المواقع</a></li>
+          <li><a href="../services.html#google-ads">إعلانات جوجل</a></li>
+          <li><a href="../services.html#social">إدارة التواصل</a></li>
+          <li><a href="../services.html#tech">الخدمات التقنية</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>تواصل معنا</h4>
+        <ul>
+          <li><a href="mailto:info@darbalnajah.com">info@darbalnajah.com</a></li>
+          <li><a href="https://wa.me/966500000000">واتساب</a></li>
+          <li><a href="#">الرياض، السعودية</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 درب النجاح للتسويق الالكتروني. جميع الحقوق محفوظة.</span>
+      <div class="footer-social">
+        <a href="#" title="Instagram" id="footerIg"></a>
+        <a href="#" title="TikTok" id="footerTiktok"></a>
+        <a href="#" title="Snapchat" id="footerSnap"></a>
+        <a href="#" title="Facebook" id="footerFb"></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/966500000000" class="whatsapp-fab" target="_blank" title="تواصل عبر واتساب" id="whatsappFab"></a>
+
+<script src="../js/icons.js"></script>
+<script src="../js/data.js"></script>
+<script src="../js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('whatsappFab').innerHTML = Icons.whatsapp;
+  var footerMap = { footerIg: 'instagram', footerTiktok: 'tiktok', footerSnap: 'snapchatGhost', footerFb: 'facebook' };
+  Object.entries(footerMap).forEach(function(entry) {
+    var el = document.getElementById(entry[0]);
+    if (el) el.innerHTML = Icons[entry[1]] || '';
+  });
+});
+</script>
+<script src="../js/config.js"></script>
+<script src="../js/admin.js"></script>
+</body>
+</html>

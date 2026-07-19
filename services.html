@@ -1,0 +1,369 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>خدماتنا | درب النجاح للتسويق الالكتروني</title>
+  <meta name="description" content="خدمات رقمية متكاملة: تصميم وتطوير المواقع الإلكترونية، إدارة إعلانات جوجل، والخدمات التقنية المتقدمة.">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .svc-category { margin-bottom: 4rem; scroll-margin-top: 120px; }
+    .svc-cat-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
+    .svc-cat-icon { width: 60px; height: 60px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; }
+    .svc-cat-header h2 { font-size: 1.8rem; font-weight: 900; }
+    .svc-cat-header p { color: var(--text-dim); font-size: 0.95rem; margin-top: 0.3rem; }
+
+    .svc-sub-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .svc-sub-card {
+      background: var(--gradient-card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .svc-sub-card::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0; left: 0;
+      height: 3px;
+      background: var(--gradient-main);
+      opacity: 0;
+      transition: var(--transition);
+    }
+    .svc-sub-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-glow);
+      border-color: rgba(0, 212, 255, 0.25);
+    }
+    .svc-sub-card:hover::before { opacity: 1; }
+    .svc-sub-card .badge {
+      display: inline-block;
+      padding: 0.25rem 0.7rem;
+      background: rgba(0, 212, 255, 0.1);
+      border: 1px solid rgba(0, 212, 255, 0.2);
+      border-radius: 50px;
+      font-size: 0.7rem;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      width: fit-content;
+    }
+    .svc-sub-card .badge.coming-soon {
+      background: rgba(224, 64, 251, 0.1);
+      border-color: rgba(224, 64, 251, 0.2);
+      color: var(--magenta);
+    }
+    .svc-sub-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.6rem; }
+    .svc-sub-card p { color: var(--text-dim); font-size: 0.9rem; line-height: 1.9; margin-bottom: 1.2rem; flex: 1; }
+    .svc-sub-card .features-list { list-style: none; margin-bottom: 1.5rem; }
+    .svc-sub-card .features-list li {
+      padding: 0.3rem 0;
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .svc-sub-card .features-list li::before {
+      content: '✓';
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+
+    .svc-cta-bottom {
+      background: var(--gradient-card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 3rem;
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .svc-cta-bottom h3 { font-size: 1.6rem; font-weight: 800; margin-bottom: 1rem; }
+    .svc-cta-bottom p { color: var(--text-dim); margin-bottom: 1.5rem; }
+  </style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-particles"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="container">
+    <div class="logo-group">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">د ن</div>
+        <div class="logo-text"><span class="highlight">درب النجاح</span></div>
+      </a>
+    </div>
+    <ul class="nav-links">
+      <li class="sidebar-close"><button class="sidebar-close-btn" aria-label="إغلاق">&times;</button></li>
+      <li><a href="index.html">الرئيسية</a></li>
+      <li><a href="about.html">من نحن</a></li>
+      <li><a href="services.html" class="active">خدماتنا</a></li>
+      <li><a href="blog.html">المدونة</a></li>
+                <li><a href="contact.html">تواصل معنا</a></li>
+    </ul>
+    <button class="theme-toggle" id="themeToggle" title="تبديل الوضع">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+    <div class="mobile-toggle">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="container">
+    <h1 class="fade-up">خدماتنا <span class="gradient-text">الرقمية</span></h1>
+    <p class="fade-up delay-1">حلول متكاملة تغطي كل ما يحتاجه عملك للنمو والتميز الرقمي</p>
+    <div class="breadcrumb fade-up delay-2">
+      <a href="index.html">الرئيسية</a>
+      <span>/</span>
+      <span>خدماتنا</span>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES CATEGORIES -->
+<section class="section">
+  <div class="container">
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- CATEGORY 1: WEBSITES -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="svc-category fade-up" id="websites">
+      <div class="svc-cat-header">
+        <div class="svc-cat-icon" style="background:rgba(0,212,255,0.1); color:var(--accent); border:1px solid rgba(0,212,255,0.2);">🌐</div>
+        <div>
+          <h2>تصميم وتطوير المواقع الإلكترونية</h2>
+          <p>مواقع احترافية تعكس هوية علامتك وتحقق أهدافك الرقمية</p>
+        </div>
+      </div>
+      <div class="svc-sub-grid">
+
+        <a href="services/website-small.html" class="svc-sub-card">
+          <div class="badge">المواقع الصغيرة</div>
+          <h3>المواقع المحدودة</h3>
+          <p>مواقع أنيقة وسريعة ببنية 5 صفحات مُحسّنة، مثالية للشركات الناشئة والأعمال الصغيرة التي تريد حضوراً رقمياً قوياً.</p>
+          <ul class="features-list">
+            <li>تصميم متجاوب بالكامل</li>
+            <li>بنية من 5 صفحات احترافية</li>
+            <li>تحسين محركات البحث</li>
+            <li>سرعة تحميل فائقة</li>
+          </ul>
+          <span class="card-link">عرض التفاصيل ←</span>
+        </a>
+
+        <a href="services/website-medium.html" class="svc-sub-card">
+          <div class="badge">المواقع المتوسطة</div>
+          <h3>المواقع المتوسطة</h3>
+          <p>بنية من 7 صفحات مع نطاق سعودي رسمي .sa، مصممة للشركات التي تتطلب حضوراً رقمياً محلياً قوياً واحترافياً.</p>
+          <ul class="features-list">
+            <li>بنية من 7 صفحات متكاملة</li>
+            <li>نطاق سعودي رسمي .sa</li>
+            <li>نظام إدارة محتوى مخصص</li>
+            <li>ربط وسائل التواصل</li>
+          </ul>
+          <span class="card-link">عرض التفاصيل ←</span>
+        </a>
+
+        <a href="services/website-large.html" class="svc-sub-card">
+          <div class="badge">المواقع الكبرى</div>
+          <h3>المواقع الكبرى والمتكاملة</h3>
+          <p>بنية ضخمة تصل لـ 25 صفحة مع نظام ثنائي اللغة ونطاقات مخصصة، للمؤسسات الكبرى التي تتطلب حضوراً رقمياً شاملاً.</p>
+          <ul class="features-list">
+            <li>بنية تصل لـ 25 صفحة</li>
+            <li>نظام ثنائي اللغة عربي/إنجليزي</li>
+            <li>نطاقات مخصصة .sa أو .com</li>
+            <li>مدونة متكاملة مع نظام تصنيف</li>
+          </ul>
+          <span class="card-link">عرض التفاصيل ←</span>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- CATEGORY 2: GOOGLE ADS -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="svc-category fade-up" id="google-ads">
+      <div class="svc-cat-header">
+        <div class="svc-cat-icon" style="background:rgba(124,58,237,0.1); color:var(--purple); border:1px solid rgba(124,58,237,0.2);">📈</div>
+        <div>
+          <h2>إدارة إعلانات جوجل</h2>
+          <p>حملات إعلانية ذكية تحقق أقصى عائد على استثمارك الإعلاني</p>
+        </div>
+      </div>
+      <div class="svc-sub-grid">
+
+        <a href="services/google-ads-basic.html" class="svc-sub-card">
+          <div class="badge">الحملات الأساسية</div>
+          <h3>حملات شبكة البحث والانتشار</h3>
+          <p>حملات مُركّزة على شبكة البحث السريع مع استراتيجيات استهداف دقيقة تجذب العملاء في لحظة البحث عن حلولك.</p>
+          <ul class="features-list">
+            <li>بحث Google والمواقع الشريكة</li>
+            <li>استهداف كلمات مفتاحية ذكي</li>
+            <li>تحسين معدلات النقر والتحويل</li>
+            <li>تقارير أداء أسبوعية</li>
+          </ul>
+          <span class="card-link">عرض التفاصيل ←</span>
+        </a>
+
+        <a href="services/google-ads-advanced.html" class="svc-sub-card">
+          <div class="badge">الحملات المتقدمة</div>
+          <h3>Performance Max & Demand Gen</h3>
+          <p>استراتيجيات متقدمة تستخدم قوة الذكاء الاصطناعي في جوجل لإيصال حملتك لأكبر عدد من الجمهور المناسب.</p>
+          <ul class="features-list">
+            <li>حملات Performance Max</li>
+            <li>استراتيجية Demand Gen</li>
+            <li>استهداف عبر جميع قنوات جوجل</li>
+            <li>تحسين تلقائي بالذكاء الاصطناعي</li>
+          </ul>
+          <span class="card-link">عرض التفاصيل ←</span>
+        </a>
+
+        <a href="services/google-ads-apps.html" class="svc-sub-card">
+          <div class="badge">تطبيقات الجوال</div>
+          <h3>حملات تطبيقات الجوال</h3>
+          <p>حملات مخصصة لتنزيلات التطبيقات مع ربط متكامل بأنظمة التتبع والقياس المتقدمة.</p>
+          <ul class="features-list">
+            <li>حملات App Campaigns</li>
+            <li>ربط AppsFlyer وFirebase</li>
+            <li>تتبع التحويلات المتقدم</li>
+            <li>تحسين تكلفة التنزيل</li>
+          </ul>
+          <span class="card-link">عرض التفاصيل ←</span>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- CATEGORY 3: TECH SERVICES -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="svc-category fade-up" id="tech">
+      <div class="svc-cat-header">
+        <div class="svc-cat-icon" style="background:rgba(0,230,118,0.1); color:var(--green); border:1px solid rgba(0,230,118,0.2);">⚡</div>
+        <div>
+          <h2>الخدمات التقنية المتقدمة</h2>
+          <p>أدوات التتبع والقياس وتحسين ظهور التطبيقات</p>
+        </div>
+      </div>
+      <div class="svc-sub-grid">
+
+        <a href="services/tracking-tools.html" class="svc-sub-card">
+          <div class="badge">أدوات التتبع</div>
+          <h3>تأسيس وربط أدوات التتبع المتقدمة</h3>
+          <p>تأسيس نظام تتبع وتحويل متكامل يضمن قياس كل نقرة وتحويل بدقة متناهية.</p>
+          <ul class="features-list">
+            <li>Conversion Tracking</li>
+            <li>Conversion API</li>
+            <li>ربط Firebase</li>
+            <li>ربط AppsFlyer</li>
+          </ul>
+          <span class="card-link">عرض التفاصيل ←</span>
+        </a>
+
+        <a href="services/aso-optimization.html" class="svc-sub-card">
+          <div class="badge">تحسين التطبيقات</div>
+          <h3>تحسين ظهور التطبيقات (ASO)</h3>
+          <p>تحسين حضور تطبيقك في متاجر التطبيقات لرفع معدلات التحميل والظهور العضوي.</p>
+          <ul class="features-list">
+            <li>تحسين App Store</li>
+            <li>تحسين Google Play</li>
+            <li>بحث الكلمات المفتاحية</li>
+            <li>تحسين معدل التحويل العضوي</li>
+          </ul>
+          <span class="card-link">عرض التفاصيل ←</span>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="svc-cta-bottom fade-up">
+      <h3>هل تبحث عن <span class="gradient-text">الحل الأمثل</span> لعملك؟</h3>
+      <p>تواصل معنا واحصل على استشارة مجانية حول الخدمة الأنسب لأهدافك.</p>
+      <a href="contact.html" class="btn btn-primary btn-lg">تواصل معنا الآن</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <div class="logo-icon">د ن</div>
+          <div class="logo-text"><span class="highlight">درب النجاح</span></div>
+        </a>
+        <p>مؤسسة متخصصة في التسويق الرقمي وتصميم المواقع الإلكترونية في الرياض، المملكة العربية السعودية.</p>
+      </div>
+      <div class="footer-col">
+        <h4>روابط سريعة</h4>
+        <ul>
+          <li><a href="index.html">الرئيسية</a></li>
+          <li><a href="about.html">من نحن</a></li>
+          <li><a href="services.html">خدماتنا</a></li>
+          <li><a href="blog.html">المدونة</a></li>
+          <li><a href="contact.html">تواصل معنا</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>خدماتنا</h4>
+        <ul>
+          <li><a href="services.html#websites">تصميم المواقع</a></li>
+          <li><a href="services.html#google-ads">إعلانات جوجل</a></li>
+          <li><a href="services.html#social">إدارة التواصل</a></li>
+          <li><a href="services.html#tech">الخدمات التقنية</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>تواصل معنا</h4>
+        <ul>
+          <li><a href="mailto:info@darbalnajah.com">info@darbalnajah.com</a></li>
+          <li><a href="https://wa.me/966500000000">واتساب</a></li>
+          <li><a href="#">الرياض، السعودية</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 درب النجاح للتسويق الالكتروني. جميع الحقوق محفوظة.</span>
+      <div class="footer-social">
+        <a href="#" title="Instagram" id="footerIg"></a>
+        <a href="#" title="TikTok" id="footerTiktok"></a>
+        <a href="#" title="Snapchat" id="footerSnap"></a>
+        <a href="#" title="Facebook" id="footerFb"></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/966500000000" class="whatsapp-fab" target="_blank" title="تواصل عبر واتساب" id="whatsappFab"></a>
+<script src="js/icons.js"></script>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('whatsappFab').innerHTML = Icons.whatsapp;
+  var footerMap = { footerIg: 'instagram', footerTiktok: 'tiktok', footerSnap: 'snapchatGhost', footerFb: 'facebook' };
+  Object.entries(footerMap).forEach(function(entry) {
+    var el = document.getElementById(entry[0]);
+    if (el) el.innerHTML = Icons[entry[1]] || '';
+  });
+});
+</script>
+<script src="js/config.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

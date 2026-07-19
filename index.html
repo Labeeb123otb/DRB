@@ -1,0 +1,752 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>درب النجاح للتسويق الالكتروني | شريكك الرقمي الاستراتيجي</title>
+  <meta name="description" content="مؤسسة درب النجاح للتسويق الالكتروني - حلول رقمية متكاملة: تصميم مواقع، إدارة إعلانات جوجل، والخدمات التقنية المتقدمة في الرياض، السعودية.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    .brands-strip {
+      padding: 3rem 0;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .brands-strip h3 {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 2rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .brands-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+    .brand-item {
+      width: 100px;
+      height: 50px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      transition: var(--transition);
+    }
+    .brand-item:hover {
+      border-color: var(--card-border);
+      color: var(--text-dim);
+    }
+
+    .about-section {
+      padding: 6rem 0;
+      position: relative;
+      z-index: 1;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .about-content h2 {
+      font-size: 2.5rem;
+      font-weight: 900;
+      margin-bottom: 1.5rem;
+      line-height: 1.3;
+    }
+    .about-content p {
+      color: var(--text-dim);
+      line-height: 2;
+      margin-bottom: 1.2rem;
+      font-size: 1.05rem;
+    }
+    .about-values {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .about-value-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+    }
+    .about-value-item:hover {
+      border-color: var(--card-border);
+    }
+    .about-value-item .v-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(0, 212, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .about-value-item span {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .about-visual {
+      position: relative;
+      height: 450px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: transparent;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .motivational-card {
+      background: var(--gradient-card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 2rem 2.5rem;
+      max-width: 380px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      animation: floatCard 4s ease-in-out infinite;
+    }
+    @keyframes floatCard {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+    .motiv-card-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--gradient-main);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 0 40px var(--accent-glow);
+    }
+    .motiv-card-icon svg { width: 28px; height: 28px; color: var(--primary); }
+    .motiv-card-text { display: flex; flex-direction: column; gap: 0.5rem; }
+    .motiv-quote {
+      font-size: 1.3rem;
+      font-weight: 700;
+      line-height: 1.6;
+      color: var(--text);
+    }
+    .motiv-sub {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+    }
+    .tech-fa-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.8rem;
+      transition: transform 0.3s ease;
+    }
+    .tech-item:hover .tech-fa-icon {
+      transform: scale(1.15);
+    }
+    .why-us-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .why-card {
+      padding: 2rem;
+      background: var(--gradient-card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .why-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      height: 3px;
+      background: var(--gradient-main);
+      transform: scaleX(0);
+      transition: var(--transition);
+    }
+    .why-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-glow);
+    }
+    .why-card:hover::after { transform: scaleX(1); }
+    .why-card .num {
+      font-size: 3rem;
+      font-weight: 900;
+      background: var(--gradient-main);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      opacity: 0.3;
+      margin-bottom: 1rem;
+    }
+    .why-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.6rem; }
+    .why-card p { color: var(--text-dim); font-size: 0.9rem; line-height: 1.9; }
+
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1.5rem;
+    }
+    .tech-item {
+      text-align: center;
+      padding: 1.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+    }
+    .tech-item:hover {
+      border-color: var(--card-border);
+      transform: translateY(-3px);
+    }
+    .tech-item span { font-size: 0.75rem; color: var(--text-dim); font-weight: 600; display: block; margin-top: 0.3rem; }
+
+    .approach-section {
+      padding: 6rem 0;
+      position: relative;
+      z-index: 1;
+    }
+    .approach-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .approach-content h2 { font-size: 2.5rem; font-weight: 900; margin-bottom: 1.5rem; }
+    .approach-content > p { color: var(--text-dim); line-height: 2; margin-bottom: 1.5rem; }
+    .approach-steps { display: flex; flex-direction: column; gap: 1.2rem; }
+    .approach-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.2rem;
+      background: var(--card-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+    }
+    .approach-step:hover { border-color: var(--card-border); }
+    .approach-step .step-num {
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      border-radius: 10px;
+      background: rgba(0, 212, 255, 0.1);
+      border: 1px solid rgba(0, 212, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .approach-step h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .approach-step p { font-size: 0.8rem; color: var(--text-dim); margin-bottom: 0; line-height: 1.7; }
+    .approach-visual {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+    .av-card {
+      padding: 1.5rem;
+      background: var(--gradient-card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      text-align: center;
+      transition: var(--transition);
+    }
+    .av-card:hover { transform: scale(1.03); }
+    .av-card:nth-child(2) { margin-top: 2rem; }
+    .av-card:nth-child(3) { margin-top: -1rem; }
+    .av-card .icon { font-size: 2rem; margin-bottom: 0.8rem; }
+    .av-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .av-card p { font-size: 0.78rem; color: var(--text-dim); }
+
+    @media (max-width: 1024px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .about-visual { height: 300px; }
+      .tech-grid { grid-template-columns: repeat(3, 1fr); }
+      .approach-grid { grid-template-columns: 1fr; }
+      .approach-visual { order: -1; }
+      .why-us-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .about-values { grid-template-columns: 1fr; }
+      .about-content h2 { font-size: 2rem; }
+      .tech-grid { grid-template-columns: repeat(3, 1fr); }
+      .about-visual { height: auto; min-height: auto; padding: 2rem 0; }
+      .motivational-card { padding: 1.5rem; max-width: 100%; width: 100%; }
+      .motiv-quote { font-size: 1.1rem; }
+      .svc-card-img { height: 150px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-particles"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="container">
+    <div class="logo-group">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">د ن</div>
+        <div class="logo-text"><span class="highlight">درب النجاح</span></div>
+      </a>
+    </div>
+    <ul class="nav-links">
+      <li class="sidebar-close"><button class="sidebar-close-btn" aria-label="إغلاق">&times;</button></li>
+      <li><a href="index.html" class="active">الرئيسية</a></li>
+      <li><a href="about.html">من نحن</a></li>
+      <li><a href="services.html">خدماتنا</a></li>
+      <li><a href="blog.html">المدونة</a></li>
+                <li><a href="contact.html">تواصل معنا</a></li>
+    </ul>
+    <button class="theme-toggle" id="themeToggle" title="تبديل الوضع">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+    <div class="mobile-toggle">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO (Clean - No Numbers) -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-visual">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+  </div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge fade-up">
+        <span class="dot"></span>
+        مؤسسة تسويق رقمي متخصصة
+      </div>
+      <h1 class="fade-up delay-1">
+        نصنع نجاحاتك الرقمية<br>
+        من <span class="gradient-text">الصفر</span> حتى <span class="gradient-text">القمة</span>
+      </h1>
+      <p class="fade-up delay-2">
+        شريكك الاستراتيجي في بناء الحضور الرقمي الاحترافي، تصميم المواقع، إدارة الإعلانات، وصناعة المحتوى الذي يحقق نتائج حقيقية.
+      </p>
+      <div class="hero-actions fade-up delay-3">
+        <a href="contact.html" class="btn btn-primary btn-lg">
+          ابدأ مشروعك الآن
+          <span>←</span>
+        </a>
+        <a href="services.html" class="btn btn-outline btn-lg">
+          استكشف خدماتنا
+        </a>
+      </div>
+
+      <!-- Floating Cards -->
+      <div class="hero-floating-card hfc-1 fade-up delay-2">
+        <div class="hfc-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <div class="hfc-text">
+          <span class="hfc-title">مشروعك يستاهل الأفضل</span>
+          <span class="hfc-sub">خلنا نساعدك توصل لأهدافك الرقمية</span>
+        </div>
+      </div>
+
+      <div class="hero-floating-card hfc-2 fade-up delay-3">
+        <div class="hfc-icon hfc-icon-purple">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        </div>
+        <div class="hfc-text">
+          <span class="hfc-title">نمو حقيقي وأرقام تتحدث</span>
+          <span class="hfc-sub">نتائج تلاحظها من أول أسبوع</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT SECTION (Directly after hero) -->
+<section class="about-section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-content fade-up">
+        <span class="section-tag">من نحن</span>
+        <h2>نبذة عن <span class="gradient-text">درب النجاح</span></h2>
+        <p>
+          مؤسسة متخصصة في التسويق الرقمي، تأسست لتقديم حلول رقمية متكاملة تجمع بين الإبداع والاستراتيجية. نؤمن بأن كل مشروع رقمي يحمل في طياته فرصة استثنائية للنمو والتميز.
+        </p>
+        <p>
+          في درب النجاح، لا نكتفي بتقديم خدمات — بل نبني شراكات استراتيجية مع عملائنا، نفهم أهدافهم بعمق، ونُحوّل تلك الأهداف إلى واقع رقمي ملموس يتجاوز التوقعات.
+        </p>
+        <div class="about-values">
+          <div class="about-value-item">
+            <div class="v-icon">💎</div>
+            <span>الجودة المطلقة</span>
+          </div>
+          <div class="about-value-item">
+            <div class="v-icon">🤝</div>
+            <span>الشفافية الكاملة</span>
+          </div>
+          <div class="about-value-item">
+            <div class="v-icon">🔬</div>
+            <span>الابتكار المستمر</span>
+          </div>
+          <div class="about-value-item">
+            <div class="v-icon">📊</div>
+            <span>النتائج الملموسة</span>
+          </div>
+        </div>
+        <div style="margin-top:2rem;">
+          <a href="about.html" class="btn btn-outline">اعرف المزيد عنا ←</a>
+        </div>
+      </div>
+      <div class="about-visual fade-up delay-2">
+        <div class="motivational-card">
+          <div class="motiv-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div class="motiv-card-text">
+            <span class="motiv-quote">"لا تنتظر الفرصة المثالية — اصنعها"</span>
+            <span class="motiv-sub">مشروعك الرقمي يستاهل يبدأ اليوم</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN SERVICES -->
+<section class="section">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-tag">خدماتنا</span>
+      <h2 class="section-title">حلول رقمية <span class="gradient-text">شاملة</span></h2>
+      <p class="section-desc">خدمات متكاملة تغطي كل ما يحتاجه عملك الرقمي للنمو والتميز</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="card fade-up delay-1">
+        <div class="svc-card-img">
+          <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?w=400&h=200&fit=crop" alt="تصميم مواقع" loading="lazy">
+        </div>
+        <div class="svc-icon-box cyan">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <h3>تصميم وتطوير المواقع</h3>
+        <p>مواقع إلكترونية عصرية، سريعة، ومتجاوبة تعكس هوية علامتك التجارية وتحقق أهدافك.</p>
+        <a href="services.html#websites" class="card-link">اكتشف المزيد ←</a>
+      </div>
+
+      <div class="card fade-up delay-2">
+        <div class="svc-card-img">
+          <img src="https://images.unsplash.com/photo-1573164574572-cb89e39749b4?w=400&h=200&fit=crop" alt="إعلانات جوجل" loading="lazy">
+        </div>
+        <div class="svc-icon-box purple">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        </div>
+        <h3>إدارة إعلانات جوجل</h3>
+        <p>حملات إعلانية ذكية على شبكة البحث وانتشار واسع لجذب العملاء المؤهلين.</p>
+        <a href="services.html#google-ads" class="card-link">اكتشف المزيد ←</a>
+      </div>
+
+      <div class="card fade-up delay-3">
+        <div class="svc-card-img">
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=200&fit=crop" alt="خدمات تقنية" loading="lazy">
+        </div>
+        <div class="svc-icon-box green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <h3>الخدمات التقنية المتقدمة</h3>
+        <p>ربط أدوات التتبع، تحسين ظهور التطبيقات، وقياس الأداء بدقة.</p>
+        <a href="services.html#tech" class="card-link">اكتشف المزيد ←</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="section" style="background: rgba(0, 212, 255, 0.05);">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-tag">لماذا نحن</span>
+      <h2 class="section-title">الـ <span class="gradient-text">فرق</span> الذي نصنعه</h2>
+      <p class="section-desc">لا نقدم مجرد خدمات رقمية، بل نبني شراكات استراتيجية تحقق نتائج استثنائية</p>
+    </div>
+
+    <div class="why-us-grid">
+      <div class="why-card fade-up delay-1">
+        <div class="num">01</div>
+        <h3>استراتيجية مبنية على البيانات</h3>
+        <p>كل قرار نسخه مبني على تحليل عميق للبيانات وأداء السوق، وليس على الافتراضات أو الحدس.</p>
+      </div>
+      <div class="why-card fade-up delay-2">
+        <div class="num">02</div>
+        <h3>فريق متخصص ومحترف</h3>
+        <p>مطورون ومصممون ومسوقون يمتلكون خبرة عميقة في السوق السعودي والعربي.</p>
+      </div>
+      <div class="why-card fade-up delay-3">
+        <div class="num">03</div>
+        <h3>نتائج ملموسة وقابلة للقياس</h3>
+        <p>نقدم تقارير أداء واضحة ودقيقة تُظهر التأثير الفعلي لعملائنا على أرض الواقع.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <div class="marquee-item"><span class="dot"></span> تصميم مواقع</div>
+    <div class="marquee-item"><span class="dot"></span> إدارة إعلانات جوجل</div>
+    <div class="marquee-item"><span class="dot"></span> تحسين التطبيقات</div>
+    <div class="marquee-item"><span class="dot"></span> صناعة المحتوى</div>
+    <div class="marquee-item"><span class="dot"></span> التتبع والقياس</div>
+    <div class="marquee-item"><span class="dot"></span> التسويق الرقمي</div>
+    <div class="marquee-item"><span class="dot"></span> تصميم مواقع</div>
+    <div class="marquee-item"><span class="dot"></span> إدارة إعلانات جوجل</div>
+    <div class="marquee-item"><span class="dot"></span> تحسين التطبيقات</div>
+    <div class="marquee-item"><span class="dot"></span> صناعة المحتوى</div>
+    <div class="marquee-item"><span class="dot"></span> التتبع والقياس</div>
+    <div class="marquee-item"><span class="dot"></span> التسويق الرقمي</div>
+  </div>
+</div>
+
+<!-- OUR APPROACH -->
+<section class="approach-section">
+  <div class="container">
+    <div class="approach-grid">
+      <div class="approach-content fade-up">
+        <span class="section-tag">منهجيتنا</span>
+        <h2>كيف نُحوّل رؤيتك إلى <span class="gradient-text">واقع رقمي</span></h2>
+        <p>نتبع منهجية مدروسة ومُحكمة تضمن تحقيق أفضل النتائج في أقصر وقت ممكن.</p>
+        <div class="approach-steps">
+          <div class="approach-step">
+            <div class="step-num">1</div>
+            <div>
+              <h4>الفهم العميق</h4>
+              <p>ندرس عملك وسوقك وجمهورك بهدف فهم كل التفاصيل المؤثرة في نجاحك الرقمي.</p>
+            </div>
+          </div>
+          <div class="approach-step">
+            <div class="step-num">2</div>
+            <div>
+              <h4>الاستراتيجية الدقيقة</h4>
+              <p>نبني خطة عمل متكاملة مبنية على بيانات حقيقية وأهداف قابلة للقياس.</p>
+            </div>
+          </div>
+          <div class="approach-step">
+            <div class="step-num">3</div>
+            <div>
+              <h4>التنفيذ الاحترافي</h4>
+              <p>نُنفّذ كل بند بدقة عالية مع الحفاظ على المعايير الاحترافية والجودة.</p>
+            </div>
+          </div>
+          <div class="approach-step">
+            <div class="step-num">4</div>
+            <div>
+              <h4>التحسين المستمر</h4>
+              <p>نراقب الأداء ونُحسّن باستمرار لتحقيق أقصى عائد على استثمارك.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="approach-visual fade-up delay-2">
+        <div class="av-card">
+          <div class="icon">🔍</div>
+          <h4>تحليل</h4>
+          <p>بيانات دقيقة</p>
+        </div>
+        <div class="av-card">
+          <div class="icon">🎯</div>
+          <h4>استراتيجية</h4>
+          <p>خطط مدروسة</p>
+        </div>
+        <div class="av-card">
+          <div class="icon">⚙️</div>
+          <h4>تنفيذ</h4>
+          <p>أداء عالي</p>
+        </div>
+        <div class="av-card">
+          <div class="icon">📊</div>
+          <h4>تحسين</h4>
+          <p>نمو مستمر</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK (Real Logos) -->
+<section class="tech-stack" style="background: rgba(0, 212, 255, 0.05); padding: 4rem 0; position: relative; z-index: 1;">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-tag">التقنيات</span>
+      <h2 class="section-title">نعمل بأحدث <span class="gradient-text">الأدوات والتقنيات</span></h2>
+    </div>
+    <div class="tech-grid fade-up">
+      <div class="tech-item">
+        <i class="fab fa-html5 tech-fa-icon" style="color:#e34f26;"></i>
+        <span>HTML5</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-css3-alt tech-fa-icon" style="color:#1572b6;"></i>
+        <span>CSS3</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-js tech-fa-icon" style="color:#f7df1e;"></i>
+        <span>JavaScript</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-google tech-fa-icon" style="color:#4285f4;"></i>
+        <span>Google Ads</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-react tech-fa-icon" style="color:#61dafb;"></i>
+        <span>React</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-node-js tech-fa-icon" style="color:#339933;"></i>
+        <span>Node.js</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-figma tech-fa-icon" style="color:#a259ff;"></i>
+        <span>Figma</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-instagram tech-fa-icon" style="color:#e4405f;"></i>
+        <span>Instagram</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-tiktok tech-fa-icon" style="color:#fff;"></i>
+        <span>TikTok</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-snapchat-ghost tech-fa-icon" style="color:#fffc00;"></i>
+        <span>Snapchat</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-meta tech-fa-icon" style="color:#0668E1;"></i>
+        <span>Meta Ads</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-whatsapp tech-fa-icon" style="color:#25D366;"></i>
+        <span>WhatsApp</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-box fade-up">
+      <h2>هل أنت مستعد لـ <span class="gradient-text">الانطلاقة الرقمية</span>؟</h2>
+      <p>تواصل معنا اليوم واحصل على استشارة مجانية حول أفضل الحلول الرقمية لعملك.</p>
+      <a href="contact.html" class="btn btn-primary btn-lg">ابدأ الآن</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <div class="logo-icon">د ن</div>
+          <div class="logo-text"><span class="highlight">درب النجاح</span></div>
+        </a>
+        <p>مؤسسة متخصصة في التسويق الرقمي وتصميم المواقع الإلكترونية في الرياض، المملكة العربية السعودية.</p>
+      </div>
+      <div class="footer-col">
+        <h4>روابط سريعة</h4>
+        <ul>
+          <li><a href="index.html">الرئيسية</a></li>
+          <li><a href="about.html">من نحن</a></li>
+          <li><a href="services.html">خدماتنا</a></li>
+          <li><a href="blog.html">المدونة</a></li>
+          <li><a href="contact.html">تواصل معنا</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>خدماتنا</h4>
+        <ul>
+          <li><a href="services.html#websites">تصميم المواقع</a></li>
+          <li><a href="services.html#google-ads">إعلانات جوجل</a></li>
+          <li><a href="services.html#tech">الخدمات التقنية</a></li>
+          <li><a href="services.html#tech">الخدمات التقنية</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>تواصل معنا</h4>
+        <ul>
+          <li><a href="mailto:info@darbalnajah.com">info@darbalnajah.com</a></li>
+          <li><a href="https://wa.me/966500000000">واتساب</a></li>
+          <li><a href="#">الرياض، السعودية</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 درب النجاح للتسويق الالكتروني. جميع الحقوق محفوظة.</span>
+      <div class="footer-social">
+        <a href="#" title="Instagram" id="footerIg"></a>
+        <a href="#" title="TikTok" id="footerTiktok"></a>
+        <a href="#" title="Snapchat" id="footerSnap"></a>
+        <a href="#" title="Facebook" id="footerFb"></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp FAB (Right side, real icon) -->
+<a href="https://wa.me/966500000000" class="whatsapp-fab" target="_blank" title="تواصل عبر واتساب" id="whatsappFab"></a>
+
+<script src="js/icons.js"></script>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Footer social
+  const footerMap = {
+    footerIg: 'instagram', footerTiktok: 'tiktok',
+    footerSnap: 'snapchatGhost', footerFb: 'facebook'
+  };
+  Object.entries(footerMap).forEach(([id, icon]) => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = Icons[icon] || '';
+  });
+
+  // WhatsApp
+  document.getElementById('whatsappFab').innerHTML = Icons.whatsapp;
+});
+</script>
+<script src="js/config.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
