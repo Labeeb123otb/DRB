@@ -755,15 +755,22 @@
 
   // ===================== SAVE / LOAD =====================
   function pageKey() {
-    var parts = location.pathname.split('/').filter(Boolean);
-    if (parts.length === 0) return 'index';
-    var last = parts[parts.length - 1];
-    // If last segment has no dot, it's a directory (root or repo name) → use 'index'
-    if (last.indexOf('.') === -1) return 'index';
-    var key = last.replace('.html', '');
+    var fullPath = location.pathname.replace(/\/+$/, '');
+    // Remove repo base (first segment if it's not the domain root)
+    var parts = fullPath.split('/').filter(Boolean);
+    // Check if first part looks like a repo name (no dot, not a known root)
+    // Normal GitHub Pages: https://user.github.io/repo/ → parts[0]='repo', parts[1]='about.html'
+    // If there are at least 2 parts, the first is likely the repo name
+    if (parts.length > 1 && parts[0].indexOf('.') === -1) {
+      parts = parts.slice(1); // remove repo name
+    }
+    var joined = parts.join('/');
+    if (!joined || joined.indexOf('.') === -1) return 'index';
+    var key = joined.replace('.html', '');
     var params = new URLSearchParams(location.search);
     var id = params.get('id');
-    if (id && key === 'article') key += '_' + id;
+    // For blog articles, include id in key
+    if (id && key.indexOf('article') !== -1) key += '_' + id;
     return key;
   }
 
@@ -820,7 +827,8 @@
       console.log('[LBOCRAFT] GitHub token not configured — edit saved locally only');
       return;
     }
-    var filePath = pk + '.html';
+    // Clean pk for file path: strip _id suffix (blog articles)
+    var filePath = pk.replace(/_\d+$/, '') + '.html';
     console.log('[LBOCRAFT] Committing to GitHub:', filePath);
 
     // Get the full current page HTML (with user edits applied)
