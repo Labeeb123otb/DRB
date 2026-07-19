@@ -47,6 +47,7 @@
         if (ghResult && ghResult.data && typeof ghResult.data === 'object' && Object.keys(ghResult.data).length > 0) {
           localStorage.setItem(EDIT_STORAGE, JSON.stringify(ghResult.data));
           console.log('[LBOCRAFT] GitHub edits fetched:', Object.keys(ghResult.data).join(', '));
+          loadEdits(); // Re-apply edits now that cloud data is in localStorage
           return;
         }
       } catch(e) {}
@@ -62,6 +63,7 @@
         if (data && typeof data === 'object' && Object.keys(data).length > 0) {
           localStorage.setItem(EDIT_STORAGE, JSON.stringify(data));
           console.log('[LBOCRAFT] Cloud edits fetched:', Object.keys(data).join(', '));
+          loadEdits();
         }
       }
     } catch(e) {}
@@ -786,7 +788,7 @@
     setEdits(data);
     pushEditsToCloud(data);
 
-    // Verify the save actually worked
+    // Verify the save worked
     var verify = getEdits();
     var verifyOk = verify[pk] && verify[pk].snapshots && verify[pk].snapshots.length === snapshots.length;
 
@@ -808,6 +810,69 @@
       panel.style.color = '#00e676';
       panel.innerHTML = '✅ تم الحفظ: ' + pk + ' (' + snapshots.length + ' عنصر)<br><span style="font-size:0.65rem;opacity:0.7">Verify: ' + (verifyOk ? 'OK' : 'FAIL') + ' | Ctrl+R للتحقق</span>';
     }
+
+    // Commit the actual HTML file to GitHub (permanent)
+    commitHTMLToGitHub(pk, snapshots);
+  }
+
+  function commitHTMLToGitHub(pk) {
+    if (!GitHubDB.init()) {
+      console.log('[LBOCRAFT] GitHub token not configured — edit saved locally only');
+      return;
+    }
+    var filePath = pk + '.html';
+    console.log('[LBOCRAFT] Committing to GitHub:', filePath);
+
+    // Get the full current page HTML (with user edits applied)
+    var fullHtml = document.documentElement.outerHTML;
+
+    // Parse and clean using DOMParser (reliable, handles nesting)
+    var parser = new DOMParser();
+    var doc = parser.parseFromString(fullHtml, 'text/html');
+
+    // Remove editor UI elements by ID
+    var removeIds = ['lbcSidebar', 'lbcTopBar', 'lbcCanvas', 'lbcToast', 'lbcDropHint', 'lbcDebugPanel', 'lbcSaveStatus'];
+    removeIds.forEach(function(id) {
+      var el = doc.getElementById(id);
+      if (el) el.remove();
+    });
+
+    // Strip contenteditable and editor artifact classes
+    doc.querySelectorAll('[contenteditable]').forEach(function(el) {
+      el.removeAttribute('contenteditable');
+      el.classList.remove('lbc-editable', 'lbc-link-editable', 'lbc-selected');
+    });
+
+    // Remove empty class attributes
+    doc.querySelectorAll('[class=""]').forEach(function(el) {
+      el.removeAttribute('class');
+    });
+
+    // Serialize back
+    var doctype = '<!DOCTYPE html>\n';
+    var cleaned = doctype + doc.documentElement.outerHTML;
+
+    // Read current file from GitHub to get its SHA, then commit
+    GitHubDB._api('GET', filePath)
+      .then(function(data) {
+        if (!data || !data.content) {
+          console.log('[LBOCRAFT] File not found on GitHub:', filePath);
+          return;
+        }
+        var encoded = btoa(unescape(encodeURIComponent(cleaned)));
+        return GitHubDB._api('PUT', filePath, {
+          message: 'LboCraft: تحديث ' + pk,
+          content: encoded,
+          sha: data.sha,
+          branch: GitHubDB._branch
+        });
+      })
+      .then(function(res) {
+        if (res) console.log('[LBOCRAFT] GitHub commit success:', filePath);
+      })
+      .catch(function(e) {
+        console.log('[LBOCRAFT] GitHub commit error:', e.message || e);
+      });
   }
 
   function loadEdits() {
