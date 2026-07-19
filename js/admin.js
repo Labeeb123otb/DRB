@@ -29,14 +29,19 @@
 
   async function fetchEditsFromCloud() {
     try {
-      var r = await fetch(_getEditsUrl());
+      var url = _getEditsUrl();
+      console.log('[LBOCRAFT] Fetching cloud edits from:', url);
+      var r = await fetch(url);
       if (r.ok) {
         var data = await r.json();
         if (data && typeof data === 'object' && Object.keys(data).length > 0) {
           localStorage.setItem(EDIT_STORAGE, JSON.stringify(data));
+          console.log('[LBOCRAFT] Cloud edits fetched and cached:', Object.keys(data).join(', '));
         }
+      } else {
+        console.log('[LBOCRAFT] Cloud fetch failed, status:', r.status);
       }
-    } catch(e) {}
+    } catch(e) { console.log('[LBOCRAFT] Cloud fetch error:', e.message); }
   }
 
   async function pushEditsToCloud(data) {
@@ -712,9 +717,11 @@
       if (!isEditorNode(node)) snapshots.push(node.outerHTML);
     });
 
-    data[pageKey()] = { snapshots: snapshots };
+    var pk = pageKey();
+    data[pk] = { snapshots: snapshots };
     setEdits(data);
     pushEditsToCloud(data);
+    console.log('[LBOCRAFT] Saved "' + pk + '" — ' + snapshots.length + ' snapshots, total keys:', Object.keys(data).join(', '));
     toast('تم حفظ التعديلات');
     var indicator = document.getElementById('lbcSaveStatus');
     if (indicator) {
@@ -726,7 +733,9 @@
 
   function loadEdits() {
     var data = getEdits();
-    var pageData = data[pageKey()];
+    var pk = pageKey();
+    var pageData = data[pk];
+    console.log('[LBOCRAFT] Load edits for "' + pk + '" — keys in storage:', Object.keys(data).join(', '), pageData ? (pageData.snapshots.length + ' snapshots') : 'NONE');
     if (!pageData || !pageData.snapshots) return;
 
     var snapshots = pageData.snapshots;
@@ -762,6 +771,7 @@
 
     // Notify pages that edits were loaded (so CMS content can re-render)
     document.dispatchEvent(new CustomEvent('lbc:editsLoaded'));
+    console.log('[LBOCRAFT] Edits loaded and applied for "' + pk + '"');
   }
 
   // ===================== GUARD: REMOVE CONTENTEDITABLE FOR VISITORS =====================
@@ -841,9 +851,14 @@
     if (isAuth()) {
       var p = new URLSearchParams(window.location.search);
       if (p.get('edit') === 'true') {
-        // Remove ?edit=true from URL for clean sharing
+        // Remove ?edit=true from URL for clean sharing (keep other params like ?id=)
         if (window.history && window.history.replaceState) {
-          window.history.replaceState({}, '', location.pathname);
+          var cleanUrl = location.pathname;
+          var params = new URLSearchParams(location.search);
+          params.delete('edit');
+          var remaining = params.toString();
+          if (remaining) cleanUrl += '?' + remaining;
+          window.history.replaceState({}, '', cleanUrl);
         }
         setTimeout(activateEditMode, 400);
       }

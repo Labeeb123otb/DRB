@@ -458,7 +458,7 @@ document.addEventListener('DOMContentLoaded', function() {
   renderArticle();
 });
 
-document.addEventListener('lbc:editsLoaded', function() { renderArticle(); });
+// Note: Do NOT listen for lbc:editsLoaded to re-render — it would overwrite LBOCRAFT snapshot edits
 </script>
 <script src="../js/config.js"></script>
 <script src="../js/admin.js"></script>
