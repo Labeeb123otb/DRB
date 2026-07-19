@@ -40,24 +40,45 @@
   }
 
   async function fetchEditsFromCloud() {
-    if (_isLocalhost()) { console.log('[LBOCRAFT] Skipping cloud fetch on localhost'); return; }
+    // Try GitHub API first (cross-device sync)
+    if (typeof GitHubDB !== 'undefined') {
+      try {
+        var ghResult = await GitHubDB.read('api/data/edits.json');
+        if (ghResult && ghResult.data && typeof ghResult.data === 'object' && Object.keys(ghResult.data).length > 0) {
+          localStorage.setItem(EDIT_STORAGE, JSON.stringify(ghResult.data));
+          console.log('[LBOCRAFT] GitHub edits fetched:', Object.keys(ghResult.data).join(', '));
+          return;
+        }
+      } catch(e) {}
+    }
+
+    // Fall back to PHP API
+    if (_isLocalhost()) { return; }
     try {
       var url = _getEditsUrl();
-      console.log('[LBOCRAFT] Fetching cloud edits from:', url);
       var r = await _fetchWithTimeout(url, {}, 4000);
       if (r.ok) {
         var data = await r.json();
         if (data && typeof data === 'object' && Object.keys(data).length > 0) {
           localStorage.setItem(EDIT_STORAGE, JSON.stringify(data));
-          console.log('[LBOCRAFT] Cloud edits fetched and cached:', Object.keys(data).join(', '));
+          console.log('[LBOCRAFT] Cloud edits fetched:', Object.keys(data).join(', '));
         }
-      } else {
-        console.log('[LBOCRAFT] Cloud fetch failed, status:', r.status);
       }
-    } catch(e) { console.log('[LBOCRAFT] Cloud fetch skipped:', e.message || 'timeout'); }
+    } catch(e) {}
   }
 
   async function pushEditsToCloud(data) {
+    // Push to GitHub API
+    if (typeof GitHubDB !== 'undefined') {
+      try {
+        var existing = await GitHubDB.read('api/data/edits.json');
+        var sha = existing ? existing.sha : null;
+        var result = await GitHubDB.write('api/data/edits.json', data, sha);
+        if (result) console.log('[LBOCRAFT] GitHub push OK');
+      } catch(e) { console.log('[LBOCRAFT] GitHub push failed:', e.message); }
+    }
+
+    // Also push to PHP API
     if (_isLocalhost()) return;
     try {
       await _fetchWithTimeout(_getEditsUrl(), {

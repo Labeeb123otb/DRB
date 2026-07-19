@@ -76,6 +76,21 @@ const LboCraft = {
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(data));
   },
 
+  async _githubRead() {
+    if (typeof GitHubDB === 'undefined') return null;
+    try {
+      return await GitHubDB.read('api/data/cms.json');
+    } catch(e) { return null; }
+  },
+
+  async _githubWrite(data) {
+    if (typeof GitHubDB === 'undefined') return;
+    try {
+      var existing = await this._githubRead();
+      await GitHubDB.write('api/data/cms.json', data, existing ? existing.sha : null);
+    } catch(e) {}
+  },
+
   // ===== PUBLIC API =====
   getData() {
     return this._data || this._localLoad();
@@ -84,6 +99,7 @@ const LboCraft = {
   async saveData(data) {
     this._data = data;
     this._localSave(data);
+    this._githubWrite(data);
     await this._apiPost('data', data);
   },
 
@@ -94,15 +110,23 @@ const LboCraft = {
       this._localSave(this.defaultData);
     }
     this._data = this._localLoad();
-    console.log('[LboCraft] Local data loaded:', (this._data.blog || []).length, 'blog posts');
 
-    // Try fetching from server (non-blocking, updates cache for next time)
+    // Try GitHub API first (cross-device sync)
+    try {
+      var gh = await this._githubRead();
+      if (gh && gh.data && gh.data.blog) {
+        this._data = gh.data;
+        this._localSave(gh.data);
+        return this._data;
+      }
+    } catch(e) {}
+
+    // Try cloud (PHP API)
     try {
       var remote = await this._apiGet('data');
       if (remote && remote.blog) {
         this._data = remote;
         this._localSave(remote);
-        console.log('[LboCraft] Cloud data loaded:', remote.blog.length, 'blog posts');
       }
     } catch(e) {}
 
