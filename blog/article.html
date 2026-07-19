@@ -343,14 +343,7 @@
 <script src="../js/data.js"></script>
 <script src="../js/main.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('whatsappFab').innerHTML = Icons.whatsapp;
-  var footerMap = { footerIg: 'instagram', footerTiktok: 'tiktok', footerSnap: 'snapchatGhost', footerFb: 'facebook' };
-  Object.entries(footerMap).forEach(function(entry) {
-    var el = document.getElementById(entry[0]);
-    if (el) el.innerHTML = Icons[entry[1]] || '';
-  });
-
+function renderArticle() {
   var params = new URLSearchParams(window.location.search);
   var postId = parseInt(params.get('id'));
   if (!postId) { renderNotFound(); return; }
@@ -368,6 +361,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var icon = icons[post.id % icons.length];
 
   var hero = document.getElementById('articleHero');
+  if (!hero) return;
   hero.innerHTML =
     '<div class="article-category">' + post.category + '</div>' +
     '<h1>' + post.title + '</h1>' +
@@ -390,6 +384,8 @@ document.addEventListener('DOMContentLoaded', function() {
     '</div>';
 
   var body = document.getElementById('articleBody');
+  if (!body) return;
+  body.style.display = '';
   var contentHtml = (post.content || '').replace(/\n/g, '</p><p>').replace(/^/, '<p>').replace(/$/, '</p>');
   var shareUrl = encodeURIComponent(window.location.href);
   var shareTitle = encodeURIComponent(post.title);
@@ -437,17 +433,32 @@ document.addEventListener('DOMContentLoaded', function() {
       'العودة للمدونة' +
     '</a>' +
     relatedHtml;
-});
+}
 
 function renderNotFound() {
-  document.getElementById('articleHero').innerHTML =
+  var hero = document.getElementById('articleHero');
+  if (!hero) return;
+  hero.innerHTML =
     '<div class="article-not-found">' +
       '<h2>المقال غير موجود</h2>' +
       '<p>الرابط غير صحيح أو المقال تم حذقه</p>' +
       '<a href="../blog.html" class="btn btn-primary">العودة للمدونة</a>' +
     '</div>';
-  document.getElementById('articleBody').style.display = 'none';
+  var body = document.getElementById('articleBody');
+  if (body) body.style.display = 'none';
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('whatsappFab').innerHTML = Icons.whatsapp;
+  var footerMap = { footerIg: 'instagram', footerTiktok: 'tiktok', footerSnap: 'snapchatGhost', footerFb: 'facebook' };
+  Object.entries(footerMap).forEach(function(entry) {
+    var el = document.getElementById(entry[0]);
+    if (el) el.innerHTML = Icons[entry[1]] || '';
+  });
+  renderArticle();
+});
+
+document.addEventListener('lbc:editsLoaded', function() { renderArticle(); });
 </script>
 <script src="../js/config.js"></script>
 <script src="../js/admin.js"></script>

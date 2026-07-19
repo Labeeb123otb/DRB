@@ -453,7 +453,7 @@ img {
   border-radius: 50px;
   font-size: 0.85rem;
   color: var(--accent);
-  margin-bottom: 2rem;
+  margin-bottom: 0.8rem;
   backdrop-filter: blur(10px);
 }
 

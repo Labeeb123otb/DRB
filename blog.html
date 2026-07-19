@@ -417,6 +417,7 @@ function subscribeNewsletter() {
 
 // Initial render
 renderBlog();
+document.addEventListener('lbc:editsLoaded', function() { renderBlog(); });
 </script>
 <script src="js/config.js"></script>
 <script src="js/admin.js"></script>

@@ -759,6 +759,9 @@
     if (typeof initTheme === 'function') initTheme();
     if (typeof initScrollAnimations === 'function') initScrollAnimations();
     if (typeof initSmoothScroll === 'function') initSmoothScroll();
+
+    // Notify pages that edits were loaded (so CMS content can re-render)
+    document.dispatchEvent(new CustomEvent('lbc:editsLoaded'));
   }
 
   // ===================== GUARD: REMOVE CONTENTEDITABLE FOR VISITORS =====================
