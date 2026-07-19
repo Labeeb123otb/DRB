@@ -753,8 +753,12 @@
 
   // ===================== SAVE / LOAD =====================
   function pageKey() {
-    var p = location.pathname.split('/').pop() || 'index';
-    var key = p.replace('.html', '');
+    var parts = location.pathname.split('/').filter(Boolean);
+    if (parts.length === 0) return 'index';
+    var last = parts[parts.length - 1];
+    // If last segment has no dot, it's a directory (root or repo name) → use 'index'
+    if (last.indexOf('.') === -1) return 'index';
+    var key = last.replace('.html', '');
     var params = new URLSearchParams(location.search);
     var id = params.get('id');
     if (id && key === 'article') key += '_' + id;

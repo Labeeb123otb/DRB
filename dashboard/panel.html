@@ -535,6 +535,22 @@
         </div>
       </div>
 
+      <div class="section-card" style="margin-top:1rem;">
+        <div class="section-header">
+          <h3>التخزين السحابي (GitHub Sync)</h3>
+        </div>
+        <div class="section-body">
+          <div class="form-group">
+            <label class="form-label">GitHub Token</label>
+            <input class="form-input" id="setGitToken" type="password" placeholder="github_pat_..." dir="ltr" style="text-align:left;font-family:monospace;">
+            <small style="color:var(--text3);font-size:0.75rem;display:block;margin-top:0.3rem;">
+              الـ Token يتخزن في متصفحك فقط، ما يتحفظ في الملفات.
+              <a href="https://github.com/settings/tokens/new" target="_blank" style="color:var(--accent);">إنشاء Token</a>
+            </small>
+          </div>
+        </div>
+      </div>
+
       <div style="margin-top:1.5rem;">
         <button class="btn btn-primary" onclick="saveSettings()">💾 حفظ الإعدادات</button>
       </div>
@@ -754,6 +770,7 @@
     document.getElementById('setEmail').value = c.email || '';
     document.getElementById('setPhone').value = c.phone || '';
     document.getElementById('setLocation').value = c.location || '';
+    document.getElementById('setGitToken').value = localStorage.getItem('lbc_github_token') || '';
   }
 
   window.saveSettings = function() {
@@ -771,6 +788,13 @@
       location: document.getElementById('setLocation').value
     };
     saveData(data);
+    // Save GitHub token separately (localStorage only, not in CMS data)
+    var token = document.getElementById('setGitToken').value.trim();
+    if (token) {
+      localStorage.setItem('lbc_github_token', token);
+    } else {
+      localStorage.removeItem('lbc_github_token');
+    }
     toast('تم حفظ الإعدادات');
   };
 
