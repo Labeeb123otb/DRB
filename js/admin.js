@@ -92,29 +92,7 @@
   }
 
   // ===================== LOAD STATUS =====================
-  function showLoadStatus(pageKey, snapshotCount) {
-    var el = document.createElement('div');
-    el.id = 'lbcDebugPanel';
-    el.style.cssText = 'position:fixed;bottom:1rem;right:1rem;padding:0.8rem 1.2rem;border-radius:12px;font-size:0.75rem;font-weight:600;z-index:99999;font-family:IBM Plex Sans Arabic,sans-serif;transition:all 0.3s;backdrop-filter:blur(10px);cursor:pointer;max-width:320px;line-height:1.6;';
-    var keys = [];
-    try { keys = Object.keys(JSON.parse(localStorage.getItem(EDIT_STORAGE) || '{}')); } catch(e) {}
-    var info = 'صفحة: ' + pageKey + ' | Snapshots: ' + snapshotCount + ' | صفحات محفوظة: ' + keys.join(', ');
-    if (snapshotCount > 0) {
-      el.style.background = 'rgba(0,230,118,0.12)';
-      el.style.border = '1px solid rgba(0,230,118,0.3)';
-      el.style.color = '#00e676';
-      el.innerHTML = '✅ تم تحميل ' + snapshotCount + ' تعديل (' + pageKey + ')<br><span style="font-size:0.65rem;opacity:0.7">' + info + '</span>';
-    } else {
-      el.style.background = 'rgba(255,255,255,0.05)';
-      el.style.border = '1px solid rgba(255,255,255,0.1)';
-      el.style.color = '#5a6278';
-      el.innerHTML = '— لا تعديلات (' + pageKey + ') | اضغط Ctrl+S للحفظ<br><span style="font-size:0.65rem;opacity:0.7">' + info + '</span>';
-    }
-    document.body.appendChild(el);
-    el.addEventListener('click', function() { el.remove(); });
-    // Auto-hide after 10s
-    setTimeout(function() { el.style.opacity = '0'; setTimeout(function() { if (el.parentNode) el.remove(); }, 500); }, 10000);
-  }
+  // showLoadStatus removed — no debug panel on page
 
   // ===================== TOAST =====================
   function toast(msg) {
@@ -811,12 +789,7 @@
 
     // Show debug panel update
     var panel = document.getElementById('lbcDebugPanel');
-    if (panel) {
-      panel.style.background = 'rgba(0,230,118,0.12)';
-      panel.style.border = '1px solid rgba(0,230,118,0.3)';
-      panel.style.color = '#00e676';
-      panel.innerHTML = '✅ تم الحفظ: ' + pk + ' (' + snapshots.length + ' عنصر)<br><span style="font-size:0.65rem;opacity:0.7">Verify: ' + (verifyOk ? 'OK' : 'FAIL') + ' | Ctrl+R للتحقق</span>';
-    }
+    if (panel) panel.remove();
 
     // Commit the actual HTML file to GitHub (permanent)
     commitHTMLToGitHub(pk, snapshots);
@@ -839,7 +812,7 @@
     var doc = parser.parseFromString(fullHtml, 'text/html');
 
     // Remove editor UI elements by ID
-    var removeIds = ['lbcSidebar', 'lbcTopBar', 'lbcCanvas', 'lbcToast', 'lbcDropHint', 'lbcDebugPanel', 'lbcSaveStatus'];
+    var removeIds = ['lbcSidebar', 'lbcTopBar', 'lbcCanvas', 'lbcToast', 'lbcDropHint', 'lbcSaveStatus'];
     removeIds.forEach(function(id) {
       var el = doc.getElementById(id);
       if (el) el.remove();
@@ -889,9 +862,6 @@
     var pageData = data[pk];
     var hasData = pageData && pageData.snapshots;
     console.log('[LBOCRAFT] Load edits for "' + pk + '" — keys in storage:', Object.keys(data).join(', '), hasData ? (pageData.snapshots.length + ' snapshots') : 'NONE');
-
-    // Show brief status indicator
-    showLoadStatus(pk, hasData ? pageData.snapshots.length : 0);
 
     if (!hasData) return;
 
