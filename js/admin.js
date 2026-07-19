@@ -71,20 +71,26 @@
   // ===================== LOAD STATUS =====================
   function showLoadStatus(pageKey, snapshotCount) {
     var el = document.createElement('div');
-    el.style.cssText = 'position:fixed;bottom:1rem;left:1rem;padding:0.5rem 1rem;border-radius:8px;font-size:0.72rem;font-weight:600;z-index:99998;font-family:IBM Plex Sans Arabic,sans-serif;pointer-events:none;transition:opacity 0.5s;backdrop-filter:blur(10px);';
+    el.id = 'lbcDebugPanel';
+    el.style.cssText = 'position:fixed;bottom:1rem;right:1rem;padding:0.8rem 1.2rem;border-radius:12px;font-size:0.75rem;font-weight:600;z-index:99999;font-family:IBM Plex Sans Arabic,sans-serif;transition:all 0.3s;backdrop-filter:blur(10px);cursor:pointer;max-width:320px;line-height:1.6;';
+    var keys = [];
+    try { keys = Object.keys(JSON.parse(localStorage.getItem(EDIT_STORAGE) || '{}')); } catch(e) {}
+    var info = 'صفحة: ' + pageKey + ' | Snapshots: ' + snapshotCount + ' | صفحات محفوظة: ' + keys.join(', ');
     if (snapshotCount > 0) {
-      el.style.background = 'rgba(0,230,118,0.15)';
+      el.style.background = 'rgba(0,230,118,0.12)';
       el.style.border = '1px solid rgba(0,230,118,0.3)';
       el.style.color = '#00e676';
-      el.textContent = '✓ ' + snapshotCount + ' تعديلات محملة (' + pageKey + ')';
+      el.innerHTML = '✅ تم تحميل ' + snapshotCount + ' تعديل (' + pageKey + ')<br><span style="font-size:0.65rem;opacity:0.7">' + info + '</span>';
     } else {
       el.style.background = 'rgba(255,255,255,0.05)';
       el.style.border = '1px solid rgba(255,255,255,0.1)';
       el.style.color = '#5a6278';
-      el.textContent = '— لا تعديلات محفوظة (' + pageKey + ')';
+      el.innerHTML = '— لا تعديلات (' + pageKey + ') | اضغط Ctrl+S للحفظ<br><span style="font-size:0.65rem;opacity:0.7">' + info + '</span>';
     }
     document.body.appendChild(el);
-    setTimeout(function() { el.style.opacity = '0'; setTimeout(function() { el.remove(); }, 500); }, 3000);
+    el.addEventListener('click', function() { el.remove(); });
+    // Auto-hide after 10s
+    setTimeout(function() { el.style.opacity = '0'; setTimeout(function() { if (el.parentNode) el.remove(); }, 500); }, 10000);
   }
 
   // ===================== TOAST =====================
@@ -754,13 +760,28 @@
     data[pk] = { snapshots: snapshots };
     setEdits(data);
     pushEditsToCloud(data);
-    console.log('[LBOCRAFT] Saved "' + pk + '" — ' + snapshots.length + ' snapshots, total keys:', Object.keys(data).join(', '));
-    toast('تم حفظ التعديلات');
+
+    // Verify the save actually worked
+    var verify = getEdits();
+    var verifyOk = verify[pk] && verify[pk].snapshots && verify[pk].snapshots.length === snapshots.length;
+
+    console.log('[LBOCRAFT] Save "' + pk + '":', snapshots.length, 'snapshots, verify:', verifyOk ? 'OK' : 'FAIL', 'keys:', Object.keys(verify).join(', '));
+    toast(verifyOk ? '✅ تم حفظ التعديلات (' + snapshots.length + ' عنصر)' : '⚠️ فشل الحفظ!');
+
     var indicator = document.getElementById('lbcSaveStatus');
     if (indicator) {
-      indicator.textContent = '● محفوظ';
-      indicator.style.background = 'rgba(0,230,118,0.1)';
-      indicator.style.color = '#00e676';
+      indicator.textContent = verifyOk ? '● محفوظ' : '● فشل';
+      indicator.style.background = verifyOk ? 'rgba(0,230,118,0.1)' : 'rgba(255,71,87,0.1)';
+      indicator.style.color = verifyOk ? '#00e676' : '#ff4757';
+    }
+
+    // Show debug panel update
+    var panel = document.getElementById('lbcDebugPanel');
+    if (panel) {
+      panel.style.background = 'rgba(0,230,118,0.12)';
+      panel.style.border = '1px solid rgba(0,230,118,0.3)';
+      panel.style.color = '#00e676';
+      panel.innerHTML = '✅ تم الحفظ: ' + pk + ' (' + snapshots.length + ' عنصر)<br><span style="font-size:0.65rem;opacity:0.7">Verify: ' + (verifyOk ? 'OK' : 'FAIL') + ' | Ctrl+R للتحقق</span>';
     }
   }
 
@@ -871,10 +892,12 @@
     setupReorderDrop();
     guardAgainstVisitors();
 
-    // Fetch edits from cloud first, then load
-    await fetchEditsFromCloud();
+    // Load edits from localStorage IMMEDIATELY (don't wait for cloud)
     ensureIds();
     loadEdits();
+
+    // Cloud sync in background (non-blocking)
+    fetchEditsFromCloud();
 
     // Click outside to deselect
     document.addEventListener('click', function(e) {

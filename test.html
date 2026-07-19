@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>اختبار التخزين - LBOCRAFT</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'IBM Plex Sans Arabic', sans-serif; background: #0a0e1a; color: #e8edf5; padding: 2rem; }
+    h1 { text-align: center; margin-bottom: 2rem; color: #00d4ff; }
+    .test-box { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    .test-box h3 { color: #00e676; margin-bottom: 1rem; }
+    .test-box h3.fail { color: #ff4757; }
+    button { padding: 0.8rem 2rem; background: linear-gradient(135deg, #00d4ff, #7c3aed); color: #fff; border: none; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; margin: 0.5rem; font-family: inherit; }
+    button:hover { opacity: 0.9; }
+    .result { padding: 1rem; border-radius: 8px; margin-top: 1rem; font-family: monospace; font-size: 0.85rem; white-space: pre-wrap; word-break: break-all; }
+    .ok { background: rgba(0,230,118,0.1); border: 1px solid rgba(0,230,118,0.3); color: #00e676; }
+    .fail { background: rgba(255,71,87,0.1); border: 1px solid rgba(255,71,87,0.3); color: #ff4757; }
+    .info { background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.3); color: #00d4ff; }
+  </style>
+</head>
+<body>
+  <h1> اختبار التخزين المحلي (localStorage)</h1>
+
+  <div class="test-box">
+    <h3>الاختبار 1: هل localStorage يعمل؟</h3>
+    <button onclick="test1()">تشغيل الاختبار</button>
+    <div id="r1" class="result info">في الانتظار...</div>
+  </div>
+
+  <div class="test-box">
+    <h3>الاختبار 2: حفظ و تحميل التعديلات</h3>
+    <button onclick="test2()">حفظ اختبار</button>
+    <button onclick="test2load()">تحميل الاختبار</button>
+    <div id="r2" class="result info">في الانتظار...</div>
+  </div>
+
+  <div class="test-box">
+    <h3>الاختبار 3: بيانات LboCraft</h3>
+    <button onclick="test3()">عرض البيانات</button>
+    <div id="r3" class="result info">في الانتظار...</div>
+  </div>
+
+  <div class="test-box">
+    <h3>الاختبار 4: بيانات التعديلات (lbc_edits)</h3>
+    <button onclick="test4()">عرض البيانات</button>
+    <button onclick="test4clear()">مسح البيانات</button>
+    <div id="r4" class="result info">في الانتظار...</div>
+  </div>
+
+  <div class="test-box">
+    <h3 class="">الاختبار 5: محاكاة حفظ و تحميل الصفحة</h3>
+    <button onclick="test5save()">حفظ صفحة اختبار</button>
+    <button onclick="test5load()">تحميل صفحة اختبار</button>
+    <div id="r5" class="result info">في الانتظار...</div>
+  </div>
+
+  <div class="test-box">
+    <h3>معلومات المتصفح</h3>
+    <div id="browserInfo" class="result info"></div>
+  </div>
+
+  <script>
+  var el = document.getElementById('browserInfo');
+  el.textContent = 'hostname: ' + location.hostname + '\n' +
+    'protocol: ' + location.protocol + '\n' +
+    'URL: ' + location.href + '\n' +
+    'localStorage length: ' + localStorage.length + '\n' +
+    'keys: ' + Object.keys(localStorage).join(', ');
+
+  function test1() {
+    var r = document.getElementById('r1');
+    try {
+      localStorage.setItem('_test', 'hello');
+      var v = localStorage.getItem('_test');
+      localStorage.removeItem('_test');
+      if (v === 'hello') {
+        r.className = 'result ok';
+        r.textContent = '✓ localStorage يعمل بشكل صحيح\nقيمة محفوظة: ' + v;
+      } else {
+        r.className = 'result fail';
+        r.textContent = '✗ localStorage لا يحفظ القيم\nالقيمة المحفوظة: ' + v;
+      }
+    } catch(e) {
+      r.className = 'result fail';
+      r.textContent = '✗ خطأ في localStorage: ' + e.message;
+    }
+  }
+
+  function test2() {
+    var r = document.getElementById('r2');
+    var testData = { snapshots: ['<div>اختبار حفظ</div>'], timestamp: Date.now() };
+    try {
+      localStorage.setItem('lbc_edits', JSON.stringify({ test_page: testData }));
+      r.className = 'result ok';
+      r.textContent = '✓ تم الحفظ:\n' + JSON.stringify(testData, null, 2);
+    } catch(e) {
+      r.className = 'result fail';
+      r.textContent = '✗ خطأ في الحفظ: ' + e.message;
+    }
+  }
+
+  function test2load() {
+    var r = document.getElementById('r2');
+    try {
+      var data = JSON.parse(localStorage.getItem('lbc_edits') || '{}');
+      r.className = 'result info';
+      r.textContent = 'البيانات المحفوظة في lbc_edits:\n' + JSON.stringify(data, null, 2);
+    } catch(e) {
+      r.className = 'result fail';
+      r.textContent = '✗ خطأ في التحميل: ' + e.message;
+    }
+  }
+
+  function test3() {
+    var r = document.getElementById('r3');
+    try {
+      var data = JSON.parse(localStorage.getItem('lbocraft_data') || 'null');
+      if (data) {
+        r.className = 'result ok';
+        r.textContent = '✓ بيانات LboCraft:\n' +
+          'مقالات: ' + (data.blog ? data.blog.length : 0) + '\n' +
+          'صفحات: ' + (data.pages ? Object.keys(data.pages).join(', ') : 'لا توجد') + '\n' +
+          'بيانات كاملة:\n' + JSON.stringify(data, null, 2).substring(0, 2000);
+      } else {
+        r.className = 'result fail';
+        r.textContent = '✗ لا توجد بيانات LboCraft محفوظة';
+      }
+    } catch(e) {
+      r.className = 'result fail';
+      r.textContent = '✗ خطأ: ' + e.message;
+    }
+  }
+
+  function test4() {
+    var r = document.getElementById('r4');
+    try {
+      var data = JSON.parse(localStorage.getItem('lbc_edits') || '{}');
+      var keys = Object.keys(data);
+      r.className = 'result info';
+      r.textContent = 'بيانات lbc_edits:\n' +
+        'عدد الصفحات المحفوظة: ' + keys.length + '\n' +
+        'أسماء الصفحات: ' + (keys.length > 0 ? keys.join(', ') : 'لا توجد') + '\n' +
+        JSON.stringify(data, null, 2).substring(0, 2000);
+    } catch(e) {
+      r.className = 'result fail';
+      r.textContent = '✗ خطأ: ' + e.message;
+    }
+  }
+
+  function test4clear() {
+    localStorage.removeItem('lbc_edits');
+    document.getElementById('r4').className = 'result ok';
+    document.getElementById('r4').textContent = '✓ تم مسح lbc_edits';
+  }
+
+  function test5save() {
+    var r = document.getElementById('r5');
+    var bodyHTML = '<div data-lbc-id="e1"><h1>اختبار</h1><p>هذا اختبار حفظ</p></div>';
+    try {
+      var data = JSON.parse(localStorage.getItem('lbc_edits') || '{}');
+      data['_test_page'] = { snapshots: [bodyHTML] };
+      localStorage.setItem('lbc_edits', JSON.stringify(data));
+      r.className = 'result ok';
+      r.textContent = '✓ تم حفظ صفحة الاختبار\nلتجربة التحميل، اضغط Ctrl+R ثم عد لهذه الصفحة واضغط "تحميل صفحة اختبار"';
+    } catch(e) {
+      r.className = 'result fail';
+      r.textContent = '✗ خطأ: ' + e.message;
+    }
+  }
+
+  function test5load() {
+    var r = document.getElementById('r5');
+    try {
+      var data = JSON.parse(localStorage.getItem('lbc_edits') || '{}');
+      var page = data['_test_page'];
+      if (page && page.snapshots) {
+        r.className = 'result ok';
+        r.textContent = '✓ تم تحميل صفحة الاختبار بنجاح!\n' +
+          'عدد Snapshots: ' + page.snapshots.length + '\n' +
+          'المحتوى: ' + page.snapshots[0].substring(0, 200);
+      } else {
+        r.className = 'result fail';
+        r.textContent = '✗ لا توجد بيانات محفوظة لصفحة الاختبار\n' +
+          'جميع المفاتيح: ' + Object.keys(data).join(', ');
+      }
+    } catch(e) {
+      r.className = 'result fail';
+      r.textContent = '✗ خطأ: ' + e.message;
+    }
+  }
+  </script>
+</body>
+</html>
