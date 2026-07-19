@@ -1716,18 +1716,19 @@ html.light .theme-toggle .icon-sun { display: block; }
   .navbar {
     position: fixed;
     top: 0.5rem;
-    left: 1.2rem;
-    right: 1.2rem;
+    left: 1rem;
+    right: 1rem;
     width: auto;
     transform: none;
-    padding: 0.85rem 1.2rem;
+    padding: 0.7rem 1rem;
     border-radius: 14px;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: linear-gradient(135deg, rgba(7,11,26,0.92) 0%, rgba(13,19,51,0.95) 40%, rgba(26,10,62,0.92) 100%);
     z-index: 2100;
   }
   .navbar::before { border-radius: 15px; }
-  .navbar.scrolled { padding: 0.85rem 1.2rem; }
+  .navbar.scrolled { padding: 0.65rem 1rem; }
 
   .navbar .container {
     display: flex;
@@ -1767,6 +1768,8 @@ html.light .theme-toggle .icon-sun { display: block; }
     padding: 6px;
     flex-shrink: 0;
     order: 3;
+    z-index: 2101;
+    position: relative;
   }
   .mobile-toggle span {
     width: 22px;
@@ -1874,12 +1877,12 @@ html.light .theme-toggle .icon-sun { display: block; }
 
   /* ===== HERO MOBILE ===== */
   .hero {
-    min-height: 100svh;
-    padding: 1rem 0 2rem;
+    min-height: 75svh;
+    padding: 5rem 0 2rem;
   }
   .hero .container { padding: 0 0.5rem; }
-  .hero h1 { font-size: 2rem; line-height: 1.35; }
-  .hero p { font-size: 0.9rem; line-height: 1.7; }
+  .hero h1 { font-size: 1.85rem; line-height: 1.35; }
+  .hero p { font-size: 0.88rem; line-height: 1.7; }
   .hero-badge { font-size: 0.72rem; padding: 0.35rem 0.8rem; }
   .hero-actions { flex-direction: column; gap: 0.6rem; }
   .hero-actions .btn { width: 100%; justify-content: center; padding: 0.85rem 1.2rem; font-size: 0.95rem; box-sizing: border-box; }
@@ -1891,9 +1894,9 @@ html.light .theme-toggle .icon-sun { display: block; }
     right: auto;
     width: 100%;
     max-width: 240px;
-    padding: 0.8rem 1.1rem;
-    gap: 0.7rem;
-    margin: 2.5rem auto 0;
+    padding: 0.7rem 1rem;
+    gap: 0.6rem;
+    margin: 1.5rem auto 0;
     display: flex;
     opacity: 0.85;
   }
