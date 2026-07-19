@@ -16,6 +16,11 @@
   function isAuth() { return localStorage.getItem('lbc_auth') === '1'; }
 
   // ===== CLOUD SYNC FOR PAGE EDITS (PHP API) =====
+  function _isLocalhost() {
+    var h = location.hostname;
+    return h === 'localhost' || h === '127.0.0.1' || h === '';
+  }
+
   function _getEditsUrl() {
     var base = (typeof LBOCRAFT_CONFIG !== 'undefined' && LBOCRAFT_CONFIG.API_BASE) ? LBOCRAFT_CONFIG.API_BASE : 'api';
     var isSubdir = window.location.pathname.includes('/services/') || window.location.pathname.includes('/blog/');
@@ -27,11 +32,19 @@
     return (typeof LBOCRAFT_CONFIG !== 'undefined' && LBOCRAFT_CONFIG.PASSCODE) ? LBOCRAFT_CONFIG.PASSCODE : '0099';
   }
 
+  function _fetchWithTimeout(url, opts, ms) {
+    var controller = new AbortController();
+    var timer = setTimeout(function() { controller.abort(); }, ms || 4000);
+    return fetch(url, Object.assign({}, opts || {}, { signal: controller.signal }))
+      .finally(function() { clearTimeout(timer); });
+  }
+
   async function fetchEditsFromCloud() {
+    if (_isLocalhost()) { console.log('[LBOCRAFT] Skipping cloud fetch on localhost'); return; }
     try {
       var url = _getEditsUrl();
       console.log('[LBOCRAFT] Fetching cloud edits from:', url);
-      var r = await fetch(url);
+      var r = await _fetchWithTimeout(url, {}, 4000);
       if (r.ok) {
         var data = await r.json();
         if (data && typeof data === 'object' && Object.keys(data).length > 0) {
@@ -41,17 +54,37 @@
       } else {
         console.log('[LBOCRAFT] Cloud fetch failed, status:', r.status);
       }
-    } catch(e) { console.log('[LBOCRAFT] Cloud fetch error:', e.message); }
+    } catch(e) { console.log('[LBOCRAFT] Cloud fetch skipped:', e.message || 'timeout'); }
   }
 
   async function pushEditsToCloud(data) {
+    if (_isLocalhost()) return;
     try {
-      await fetch(_getEditsUrl(), {
+      await _fetchWithTimeout(_getEditsUrl(), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'X-Passcode': _getPasscode() },
         body: JSON.stringify(data)
-      });
+      }, 4000);
     } catch(e) {}
+  }
+
+  // ===================== LOAD STATUS =====================
+  function showLoadStatus(pageKey, snapshotCount) {
+    var el = document.createElement('div');
+    el.style.cssText = 'position:fixed;bottom:1rem;left:1rem;padding:0.5rem 1rem;border-radius:8px;font-size:0.72rem;font-weight:600;z-index:99998;font-family:IBM Plex Sans Arabic,sans-serif;pointer-events:none;transition:opacity 0.5s;backdrop-filter:blur(10px);';
+    if (snapshotCount > 0) {
+      el.style.background = 'rgba(0,230,118,0.15)';
+      el.style.border = '1px solid rgba(0,230,118,0.3)';
+      el.style.color = '#00e676';
+      el.textContent = '✓ ' + snapshotCount + ' تعديلات محملة (' + pageKey + ')';
+    } else {
+      el.style.background = 'rgba(255,255,255,0.05)';
+      el.style.border = '1px solid rgba(255,255,255,0.1)';
+      el.style.color = '#5a6278';
+      el.textContent = '— لا تعديلات محفوظة (' + pageKey + ')';
+    }
+    document.body.appendChild(el);
+    setTimeout(function() { el.style.opacity = '0'; setTimeout(function() { el.remove(); }, 500); }, 3000);
   }
 
   // ===================== TOAST =====================
@@ -735,8 +768,13 @@
     var data = getEdits();
     var pk = pageKey();
     var pageData = data[pk];
-    console.log('[LBOCRAFT] Load edits for "' + pk + '" — keys in storage:', Object.keys(data).join(', '), pageData ? (pageData.snapshots.length + ' snapshots') : 'NONE');
-    if (!pageData || !pageData.snapshots) return;
+    var hasData = pageData && pageData.snapshots;
+    console.log('[LBOCRAFT] Load edits for "' + pk + '" — keys in storage:', Object.keys(data).join(', '), hasData ? (pageData.snapshots.length + ' snapshots') : 'NONE');
+
+    // Show brief status indicator
+    showLoadStatus(pk, hasData ? pageData.snapshots.length : 0);
+
+    if (!hasData) return;
 
     var snapshots = pageData.snapshots;
 

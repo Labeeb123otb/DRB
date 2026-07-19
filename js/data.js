@@ -17,10 +17,22 @@ const LboCraft = {
   _data: null,
   _apiBase: '',
 
+  // ===== HELPERS =====
+  _isLocalhost() {
+    var h = location.hostname;
+    return h === 'localhost' || h === '127.0.0.1' || h === '';
+  },
+
+  _fetchWithTimeout(url, opts, ms) {
+    var controller = new AbortController();
+    var timer = setTimeout(function() { controller.abort(); }, ms || 4000);
+    return fetch(url, Object.assign({}, opts || {}, { signal: controller.signal }))
+      .finally(function() { clearTimeout(timer); });
+  },
+
   // ===== API HELPERS =====
   _getUrl(endpoint) {
     var base = (typeof LBOCRAFT_CONFIG !== 'undefined' && LBOCRAFT_CONFIG.API_BASE) ? LBOCRAFT_CONFIG.API_BASE : 'api';
-    // Handle relative paths based on current page location
     var isSubdir = window.location.pathname.includes('/services/') || window.location.pathname.includes('/blog/');
     var prefix = isSubdir ? '../' : '';
     return prefix + base + '/' + endpoint + '.php';
@@ -31,28 +43,30 @@ const LboCraft = {
   },
 
   async _apiGet(endpoint) {
+    if (this._isLocalhost()) return null;
     try {
-      var r = await fetch(this._getUrl(endpoint));
+      var r = await this._fetchWithTimeout(this._getUrl(endpoint), {}, 4000);
       if (!r.ok) return null;
       return await r.json();
     } catch(e) { return null; }
   },
 
   async _apiPost(endpoint, data) {
+    if (this._isLocalhost()) return false;
     try {
-      var r = await fetch(this._getUrl(endpoint), {
+      var r = await this._fetchWithTimeout(this._getUrl(endpoint), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'X-Passcode': this._getPasscode()
         },
         body: JSON.stringify(data)
-      });
+      }, 4000);
       return r.ok;
     } catch(e) { return false; }
   },
 
-  // ===== LOCAL STORAGE FALLBACK =====
+  // ===== LOCAL STORAGE =====
   _localLoad() {
     try { return JSON.parse(localStorage.getItem(this.STORAGE_KEY)) || this.defaultData; }
     catch(e) { return this.defaultData; }
@@ -75,19 +89,22 @@ const LboCraft = {
 
   // ===== INIT =====
   async init() {
-    // Always have local data ready
+    // Always have local data ready FIRST (synchronously)
     if (!localStorage.getItem(this.STORAGE_KEY)) {
       this._localSave(this.defaultData);
     }
+    this._data = this._localLoad();
+    console.log('[LboCraft] Local data loaded:', (this._data.blog || []).length, 'blog posts');
 
-    // Try fetching from server
-    var remote = await this._apiGet('data');
-    if (remote && remote.blog) {
-      this._data = remote;
-      this._localSave(remote);
-    } else {
-      this._data = this._localLoad();
-    }
+    // Try fetching from server (non-blocking, updates cache for next time)
+    try {
+      var remote = await this._apiGet('data');
+      if (remote && remote.blog) {
+        this._data = remote;
+        this._localSave(remote);
+        console.log('[LboCraft] Cloud data loaded:', remote.blog.length, 'blog posts');
+      }
+    } catch(e) {}
 
     return this._data;
   },
@@ -148,5 +165,5 @@ const LboCraft = {
   }
 };
 
-// Auto-init
+// Auto-init — sets _data synchronously from localStorage, then fetches cloud in background
 LboCraft.init();
