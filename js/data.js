@@ -77,18 +77,31 @@ const LboCraft = {
   },
 
   async _githubRead() {
-    if (typeof GitHubDB === 'undefined') return null;
+    if (typeof GitHubDB === 'undefined') { console.log('[LBOCRAFT] GitHubDB not available for read'); return null; }
     try {
-      return await GitHubDB.read('api/data/cms.json');
-    } catch(e) { return null; }
+      var result = await GitHubDB.read('api/data/cms.json');
+      console.log('[LBOCRAFT] GitHub CMS read:', result ? 'found' : 'null');
+      return result;
+    } catch(e) {
+      console.log('[LBOCRAFT] GitHub CMS read error:', e.message || e);
+      return null;
+    }
   },
 
   async _githubWrite(data) {
-    if (typeof GitHubDB === 'undefined') return;
+    if (typeof GitHubDB === 'undefined') { console.log('[LBOCRAFT] GitHubDB not available'); return; }
     try {
       var existing = await this._githubRead();
-      await GitHubDB.write('api/data/cms.json', data, existing ? existing.sha : null);
-    } catch(e) {}
+      var sha = existing ? existing.sha : null;
+      var result = await GitHubDB.write('api/data/cms.json', data, sha);
+      if (result) {
+        console.log('[LBOCRAFT] GitHub CMS write OK');
+      } else {
+        console.log('[LBOCRAFT] GitHub CMS write returned null');
+      }
+    } catch(e) {
+      console.log('[LBOCRAFT] GitHub CMS write error:', e.message || e);
+    }
   },
 
   // ===== PUBLIC API =====
@@ -99,7 +112,9 @@ const LboCraft = {
   async saveData(data) {
     this._data = data;
     this._localSave(data);
-    this._githubWrite(data);
+    console.log('[LBOCRAFT] saveData: localStorage OK, syncing to GitHub...');
+    await this._githubWrite(data);
+    console.log('[LBOCRAFT] saveData: GitHub sync completed');
     await this._apiPost('data', data);
   },
 
@@ -114,9 +129,11 @@ const LboCraft = {
     // Try GitHub API first (cross-device sync)
     try {
       var gh = await this._githubRead();
-      if (gh && gh.data && gh.data.blog) {
+      if (gh && gh.data && typeof gh.data === 'object' && Object.keys(gh.data).length > 1) {
         this._data = gh.data;
         this._localSave(gh.data);
+        console.log('[LBOCRAFT] Data loaded from GitHub');
+        document.dispatchEvent(new CustomEvent('lbc:dataLoaded'));
         return this._data;
       }
     } catch(e) {}
@@ -127,6 +144,8 @@ const LboCraft = {
       if (remote && remote.blog) {
         this._data = remote;
         this._localSave(remote);
+        console.log('[LBOCRAFT] Data loaded from PHP API');
+        document.dispatchEvent(new CustomEvent('lbc:dataLoaded'));
       }
     } catch(e) {}
 
