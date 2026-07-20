@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
@@ -418,6 +418,9 @@ function subscribeNewsletter() {
 
 // Initial render
 renderBlog();
+
+// Re-render when cloud data arrives (cross-device sync)
+document.addEventListener('lbc:dataLoaded', function() { renderBlog(); });
 </script>
 <script src="js/config.js?v=4"></script>
 <script src="js/admin.js?v=4"></script>
