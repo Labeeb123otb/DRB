@@ -1,6 +1,15 @@
 {
   "pages": {},
   "contact_info": {},
-  "blog": [],
+  "blog": [
+    {
+      "id": 1784556163361,
+      "title": "بلاى",
+      "category": "تصميم مواقع",
+      "date": "2026-07-20",
+      "excerpt": "ؤيبءلا",
+      "content": "لاسيببي"
+    }
+  ],
   "social": {}
 }
