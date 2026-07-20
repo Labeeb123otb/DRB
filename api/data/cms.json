@@ -1,21 +1,6 @@
 {
-    "pages":  {
-
-              },
-    "contact_info":  {
-
-                     },
-    "blog":  [
-                 {
-                     "id":  999,
-                     "content":  "محتوى تجريبي",
-                     "date":  "2026-07-20",
-                     "category":  "تجربة",
-                     "title":  "مقالة تجريبية",
-                     "excerpt":  "اختبار"
-                 }
-             ],
-    "social":  {
-
-               }
+  "pages": {},
+  "contact_info": {},
+  "blog": [],
+  "social": {}
 }
