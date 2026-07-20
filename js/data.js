@@ -91,16 +91,46 @@ const LboCraft = {
   async _githubWrite(data) {
     if (typeof GitHubDB === 'undefined') { console.log('[LBOCRAFT] GitHubDB not available'); return; }
     try {
-      var existing = await this._githubRead();
+      var existing = null;
+      try { existing = await this._githubRead(); } catch(e) {}
       var sha = existing ? existing.sha : null;
+      if (!sha) console.log('[LBOCRAFT] No SHA found, will try to create file');
       var result = await GitHubDB.write('api/data/cms.json', data, sha);
       if (result) {
-        console.log('[LBOCRAFT] GitHub CMS write OK');
+        console.log('[LBOCRAFT] GitHub CMS write OK, SHA:', result.content ? result.content.sha : 'N/A');
       } else {
-        console.log('[LBOCRAFT] GitHub CMS write returned null');
+        console.log('[LBOCRAFT] GitHub CMS write returned null - trying direct fetch...');
+        // Fallback: direct fetch without GitHubDB
+        await this._githubDirectWrite(data);
       }
     } catch(e) {
       console.log('[LBOCRAFT] GitHub CMS write error:', e.message || e);
+    }
+  },
+
+  async _githubDirectWrite(data) {
+    if (typeof GitHubDB === 'undefined') return;
+    try {
+      // Try to create/update without SHA using a raw fetch
+      var token = GitHubDB._token;
+      if (!token) return;
+      var json = JSON.stringify(data, null, 2);
+      var encoded = btoa(unescape(encodeURIComponent(json)));
+      var body = { message: 'LboCraft: sync cms', content: encoded, branch: 'main' };
+      var url = 'https://api.github.com/repos/' + GitHubDB._repo + '/contents/api/data/cms.json';
+      var r = await fetch(url, {
+        method: 'PUT',
+        headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+      if (r.ok) {
+        console.log('[LBOCRAFT] Direct GitHub write OK');
+      } else {
+        var err = await r.text();
+        console.log('[LBOCRAFT] Direct GitHub write failed:', r.status, err);
+      }
+    } catch(e) {
+      console.log('[LBOCRAFT] Direct GitHub write error:', e.message || e);
     }
   },
 
