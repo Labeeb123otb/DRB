@@ -77,61 +77,51 @@ const LboCraft = {
   },
 
   async _githubRead() {
-    if (typeof GitHubDB === 'undefined') { console.log('[LBOCRAFT] GitHubDB not available for read'); return null; }
-    try {
-      var result = await GitHubDB.read('api/data/cms.json');
-      console.log('[LBOCRAFT] GitHub CMS read:', result ? 'found' : 'null');
-      return result;
-    } catch(e) {
-      console.log('[LBOCRAFT] GitHub CMS read error:', e.message || e);
-      return null;
+    var token = '';
+    if (typeof GitHubDB !== 'undefined') {
+      GitHubDB.init();
+      token = GitHubDB._token;
     }
+    if (!token) { console.log('[LBOCRAFT] No GitHub token for CMS read'); return null; }
+    try {
+      var url = 'https://api.github.com/repos/Labeeb123otb/DRB/contents/api/data/cms.json';
+      var res = await fetch(url, { headers: { 'Authorization': 'Bearer ' + token } });
+      if (!res.ok) { console.log('[LBOCRAFT] GitHub CMS read status:', res.status); return null; }
+      var data = await res.json();
+      if (!data.content) return null;
+      var raw = atob(data.content.replace(/\n/g, ''));
+      var decoded = decodeURIComponent(escape(raw));
+      var parsed = JSON.parse(decoded);
+      return { data: parsed, sha: data.sha };
+    } catch(e) { console.log('[LBOCRAFT] GitHub CMS read error:', e.message || e); return null; }
   },
 
   async _githubWrite(data) {
-    if (typeof GitHubDB === 'undefined') { console.log('[LBOCRAFT] GitHubDB not available'); return; }
-    try {
-      var existing = null;
-      try { existing = await this._githubRead(); } catch(e) {}
-      var sha = existing ? existing.sha : null;
-      if (!sha) console.log('[LBOCRAFT] No SHA found, will try to create file');
-      var result = await GitHubDB.write('api/data/cms.json', data, sha);
-      if (result) {
-        console.log('[LBOCRAFT] GitHub CMS write OK, SHA:', result.content ? result.content.sha : 'N/A');
-      } else {
-        console.log('[LBOCRAFT] GitHub CMS write returned null - trying direct fetch...');
-        // Fallback: direct fetch without GitHubDB
-        await this._githubDirectWrite(data);
-      }
-    } catch(e) {
-      console.log('[LBOCRAFT] GitHub CMS write error:', e.message || e);
+    var token = '';
+    if (typeof GitHubDB !== 'undefined') {
+      GitHubDB.init();
+      token = GitHubDB._token;
     }
-  },
-
-  async _githubDirectWrite(data) {
-    if (typeof GitHubDB === 'undefined') return;
+    if (!token) { console.log('[LBOCRAFT] No GitHub token for CMS write'); return; }
     try {
-      // Try to create/update without SHA using a raw fetch
-      var token = GitHubDB._token;
-      if (!token) return;
+      // Get current SHA
+      var url = 'https://api.github.com/repos/Labeeb123otb/DRB/contents/api/data/cms.json';
+      var getRes = await fetch(url, { headers: { 'Authorization': 'Bearer ' + token } });
+      var existing = getRes.ok ? await getRes.json() : null;
+      var sha = existing ? existing.sha : null;
+      // Encode and write
       var json = JSON.stringify(data, null, 2);
       var encoded = btoa(unescape(encodeURIComponent(json)));
-      var body = { message: 'LboCraft: sync cms', content: encoded, branch: 'main' };
-      var url = 'https://api.github.com/repos/' + GitHubDB._repo + '/contents/api/data/cms.json';
-      var r = await fetch(url, {
+      var putBody = { message: 'LboCraft: sync cms', content: encoded, branch: 'main' };
+      if (sha) putBody.sha = sha;
+      var putRes = await fetch(url, {
         method: 'PUT',
         headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
+        body: JSON.stringify(putBody)
       });
-      if (r.ok) {
-        console.log('[LBOCRAFT] Direct GitHub write OK');
-      } else {
-        var err = await r.text();
-        console.log('[LBOCRAFT] Direct GitHub write failed:', r.status, err);
-      }
-    } catch(e) {
-      console.log('[LBOCRAFT] Direct GitHub write error:', e.message || e);
-    }
+      if (putRes.ok) { console.log('[LBOCRAFT] GitHub CMS write OK'); }
+      else { var t = await putRes.text(); console.log('[LBOCRAFT] GitHub CMS write failed:', putRes.status, t.substring(0,200)); }
+    } catch(e) { console.log('[LBOCRAFT] GitHub CMS write error:', e.message || e); }
   },
 
   // ===== PUBLIC API =====
