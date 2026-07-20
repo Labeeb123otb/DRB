@@ -594,15 +594,7 @@
   ];
 
   function getData() { return LboCraft.getData(); }
-  function saveData(d) {
-  // Immediate local save (shows instantly)
-  LboCraft._data = d;
-  LboCraft._localSave(d);
-  // Background GitHub sync
-  LboCraft._githubWrite(d).catch(function(e) {
-    console.log('[PANEL] GitHub sync error:', e);
-  });
-}
+  function saveData(d) { LboCraft.saveData(d); }
 
   function toast(msg) {
     var t = document.getElementById('toast');
@@ -748,15 +740,9 @@
       toast('تم تحديث المقالة');
     } else {
       data.blog.unshift({ id: Date.now(), title: title, category: category, date: date, excerpt: excerpt, content: content });
-      toast('⏳ يتم الحفظ...');
+      toast('تمت إضافة المقالة');
     }
-    // Save synchronously to localStorage first, then try GitHub sync
     saveData(data);
-    toast('تمت إضافة المقالة محلياً ✓');
-    // Try GitHub sync explicitly
-    setTimeout(function() {
-      syncNow();
-    }, 100);
     editingId = null;
     document.getElementById('blogListCard').style.display = 'block';
     document.getElementById('blogFormCard').style.display = 'none';
