@@ -462,6 +462,18 @@ document.addEventListener('DOMContentLoaded', function() {
 // Re-render when cloud data arrives (cross-device sync)
 document.addEventListener('lbc:dataLoaded', function() { renderArticle(); });
 
+// Force direct GitHub sync after page loads
+setTimeout(function() {
+  LboCraft._githubRead().then(function(gh) {
+    if (gh && gh.data && typeof gh.data === 'object' && Object.keys(gh.data).length > 1) {
+      LboCraft._data = gh.data;
+      LboCraft._localSave(gh.data);
+      renderArticle();
+      console.log('[ARTICLE] Force sync from GitHub OK');
+    }
+  });
+}, 1000);
+
 // Note: Do NOT listen for lbc:editsLoaded to re-render — it would overwrite LBOCRAFT snapshot edits
 </script>
 <script src="../js/config.js?v=4"></script>
