@@ -421,6 +421,18 @@ renderBlog();
 
 // Re-render when cloud data arrives (cross-device sync)
 document.addEventListener('lbc:dataLoaded', function() { renderBlog(); });
+
+// Force direct GitHub sync after page loads
+setTimeout(function() {
+  LboCraft._githubRead().then(function(gh) {
+    if (gh && gh.data && typeof gh.data === 'object' && Object.keys(gh.data).length > 1) {
+      LboCraft._data = gh.data;
+      LboCraft._localSave(gh.data);
+      renderBlog();
+      console.log('[BLOG] Force sync from GitHub OK');
+    }
+  });
+}, 1000);
 </script>
 <script src="js/config.js?v=4"></script>
 <script src="js/admin.js?v=4"></script>
